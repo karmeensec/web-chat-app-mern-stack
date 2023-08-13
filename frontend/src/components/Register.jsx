@@ -41,6 +41,16 @@ const Register = () => {
   const handleRegisterSubmit = (e) => {
     e.preventDefault();
     console.log("User State", userRegister);
+
+    const { userName, email, password, confirmPassword, image } = userRegister;
+
+    const formData = new FormData();
+
+    formData.append("userName", userName);
+    formData.append("email", email);
+    formData.append("password", password);
+    formData.append("confirmPassword", confirmPassword);
+    formData.append("image", image);
   };
 
   return (
