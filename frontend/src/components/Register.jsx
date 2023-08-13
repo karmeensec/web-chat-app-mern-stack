@@ -10,6 +10,10 @@ const Register = () => {
     image: "",
   });
 
+  const [loadImage, setLoadImage] = useState("");
+
+  /* ********************************************** */
+
   const handleInputRegisterChange = (e) => {
     setUserRegister({
       ...userRegister,
@@ -24,6 +28,14 @@ const Register = () => {
         [e.target.name]: e.target.files[0],
       });
     }
+
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      setLoadImage(reader.result);
+    };
+
+    reader.readAsDataURL(e.target.files[0]);
   };
 
   const handleRegisterSubmit = (e) => {
@@ -93,7 +105,9 @@ const Register = () => {
 
             <div className="form-group">
               <div className="file-image">
-                <div className="image"></div>
+                <div className="image">
+                  {loadImage ? <img src={loadImage} alt="" /> : ""}
+                </div>
                 <div className="file">
                   <label htmlFor="image">Select Image</label>
                   <input
