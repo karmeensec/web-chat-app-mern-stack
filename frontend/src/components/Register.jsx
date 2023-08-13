@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { userRegisterDispatch } from "../store/actions/authAction.js";
 
 const Register = () => {
   const [userRegister, setUserRegister] = useState({
@@ -11,6 +13,8 @@ const Register = () => {
   });
 
   const [loadImage, setLoadImage] = useState("");
+
+  const dispatch = useDispatch();
 
   /* ********************************************** */
 
@@ -51,6 +55,8 @@ const Register = () => {
     formData.append("password", password);
     formData.append("confirmPassword", confirmPassword);
     formData.append("image", image);
+
+    dispatch(userRegisterDispatch(formData));
   };
 
   return (
