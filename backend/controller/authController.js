@@ -20,7 +20,7 @@ module.exports.userRegister = (req, res) => {
       errorMessage.push("Please add your email!");
     }
 
-    if (email && validator.isEmail(email)) {
+    if (email && !validator.isEmail(email)) {
       errorMessage.push("Please add your valid email!");
     }
 
@@ -50,6 +50,9 @@ module.exports.userRegister = (req, res) => {
           errMessage: errorMessage,
         },
       });
+    } else {
+      const imageName = files.image.originalFilename;
+      console.log(imageName);
     }
   });
 

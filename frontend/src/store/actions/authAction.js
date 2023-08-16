@@ -4,9 +4,7 @@ export const userRegisterDispatch = (data) => {
   return async (dispatch) => {
     const config = {
       headers: {
-        "Content-Type": `multipart/form-data;`,
-        accept: "application/json",
-        "Accept-Language": "en-US,en;q=0.8",
+        "Content-Type": "application/json",
       },
     };
 
