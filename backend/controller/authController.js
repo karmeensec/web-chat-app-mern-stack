@@ -1,5 +1,6 @@
 const formidable = require("formidable");
 const validator = require("validator");
+const registerSchema = require("../models/authModel");
 
 module.exports.userRegister = (req, res) => {
   const form = new formidable.IncomingForm();
@@ -46,13 +47,44 @@ module.exports.userRegister = (req, res) => {
 
     if (errorMessage.length > 0) {
       res.status(400).json({
-        errorMessage: {
-          errMessage: errorMessage,
+        error: {
+          errorMessage: error,
         },
       });
     } else {
       const imageName = files.image.originalFilename;
       console.log(imageName);
+
+      const randomNumber = Math.floor(Math.random() * 99999);
+      const newImageName = randomNumber + imageName;
+
+      console.log(newImageName);
+
+      files.image.originalFilename = newImageName;
+
+      const newPath =
+        __dirname +
+        `../../../frontend/public/images/${files.image.originalFilename}`;
+
+      try {
+        const checkUser = await registerSchema.findOne({
+          email: email,
+        });
+
+        if (checkUser) {
+          res.status(404).json({
+            error: {
+              errorMessage: ["Your email address is already exists."],
+            },
+          });
+        }
+      } catch (error) {
+        res.status(500).json({
+          error: {
+            errorMessage: ["Internal Server Error"],
+          },
+        });
+      }
     }
   });
 
