@@ -1,6 +1,8 @@
 const formidable = require("formidable");
 const validator = require("validator");
 const registerSchema = require("../models/authModel");
+const fs = require("fs");
+const bcrypt = require("bcrypt");
 
 module.exports.userRegister = (req, res) => {
   const form = new formidable.IncomingForm();
@@ -37,7 +39,7 @@ module.exports.userRegister = (req, res) => {
       errorMessage.push("Passwords did not match!");
     }
 
-    if (password && password.length < 8) {
+    if (password && password.length < 5) {
       errorMessage.push("Password must be at least 8 characters!");
     }
 
@@ -76,6 +78,18 @@ module.exports.userRegister = (req, res) => {
             error: {
               errorMessage: ["Your email address is already exists."],
             },
+          });
+        } else {
+          fs.copyFile(files.image.filepath, newPath, async (error) => {
+            if (!error) {
+              const userCreate = await registerSchema.create({
+                userName,
+                email,
+                password: await bcrypt.hash(password, 10),
+                image: files.image.originalFilename,
+              });
+              console.log("Registered successfully!", userCreate);
+            }
           });
         }
       } catch (error) {
