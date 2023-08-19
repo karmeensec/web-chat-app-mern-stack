@@ -57,6 +57,7 @@ const Register = () => {
     formData.append("image", image);
 
     dispatch(userRegisterDispatch(formData));
+    console.log(formData);
   };
 
   return (
