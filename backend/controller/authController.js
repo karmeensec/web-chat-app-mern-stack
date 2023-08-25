@@ -176,6 +176,63 @@ module.exports.userLogin = async (req, res) => {
         errorMessage: errorMessage,
       },
     });
+  } else {
+    try {
+      const checkUser = await registerSchema
+        .findOne({
+          email: email,
+        })
+        .select("+password");
+
+      console.log("Login Check User: ", checkUser);
+
+      if (checkUser) {
+        const matchPwd = await bcrypt.compare(password, checkUser.password);
+
+        if (matchPwd) {
+          const token = jwt.sign(
+            {
+              id: checkUser._id,
+              email: checkUser.email,
+              userName: checkUser.userName,
+              image: checkUser.image,
+              registerTime: checkUser.createdAt,
+            },
+            process.env.SECRET_KEY,
+            { expiresIn: process.env.TOKEN_EXP }
+          );
+
+          const options = {
+            expires: new Date(
+              Date.now() + process.env.COOKIE_EXP * 24 * 60 * 60 * 1000
+            ),
+          };
+
+          res.status(200).cookie("authToken", token, options).json({
+            successMessage: "Login successful",
+            token,
+          });
+        } else {
+          res.status(400).json({
+            error: {
+              errorMessage: ["Your password is not valid!"],
+            },
+          });
+        }
+      } else {
+        res.status(400).json({
+          error: {
+            errorMessage: ["Your email not found!"],
+          },
+        });
+      }
+    } catch (error) {
+      res.status(404).json({
+        error: {
+          errorMessage: ["Not found!!!"],
+        },
+      });
+    }
   }
 
   console.log("Login is called");
