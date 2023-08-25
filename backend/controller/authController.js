@@ -11,9 +11,14 @@ module.exports.userRegister = (req, res) => {
     console.log("Fields: ", fields);
     console.log("Files: ", files);
 
-    const { userName, email, password, confirmPassword } = fields;
+    const userName = fields.userName[0];
+    const email = fields.email[0];
+    const password = fields.password[0];
+    const confirmPassword = fields.confirmPassword[0];
     const { image } = files;
     const errorMessage = [];
+
+    console.log("ThisImage:", image);
 
     if (!userName) {
       errorMessage.push("Please add your username!");
@@ -50,23 +55,28 @@ module.exports.userRegister = (req, res) => {
     if (errorMessage.length > 0) {
       res.status(400).json({
         error: {
-          errorMessage: error,
+          errorMessage: errorMessage,
         },
       });
     } else {
-      const imageName = files.image.originalFilename;
-      console.log(imageName);
+      const filesImage = files.image[0];
+      console.log("files image: ", filesImage);
+
+      const imageName = filesImage.originalFilename;
+      console.log("IMage name: ", imageName);
 
       const randomNumber = Math.floor(Math.random() * 99999);
       const newImageName = randomNumber + imageName;
 
-      console.log(newImageName);
+      console.log("New image name: ", newImageName);
 
-      files.image.originalFilename = newImageName;
+      filesImage.originalFilename = newImageName;
 
       const newPath =
         __dirname +
-        `../../../frontend/public/images/${files.image.originalFilename}`;
+        `../../../frontend/public/images/${filesImage.originalFilename}`;
+
+      console.log("New Path: ", newPath);
 
       try {
         const checkUser = await registerSchema.findOne({
@@ -80,13 +90,14 @@ module.exports.userRegister = (req, res) => {
             },
           });
         } else {
-          fs.copyFile(files.image.filepath, newPath, async (error) => {
+          console.log("Filepath: ", filesImage.filepath);
+          fs.copyFile(filesImage.filepath, newPath, async (error) => {
             if (!error) {
               const userCreate = await registerSchema.create({
                 userName,
                 email,
                 password: await bcrypt.hash(password, 10),
-                image: files.image.originalFilename,
+                image: filesImage.originalFilename,
               });
               console.log("Registered successfully!", userCreate);
             }
