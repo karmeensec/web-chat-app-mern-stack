@@ -4,7 +4,8 @@ const registerSchema = require("../models/authModel");
 const fs = require("fs");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const { response } = require("express");
+
+/* ********User Register******** */
 
 module.exports.userRegister = (req, res) => {
   const form = new formidable.IncomingForm();
@@ -146,4 +147,16 @@ module.exports.userRegister = (req, res) => {
   });
 
   console.log("Register is called");
+};
+
+/* ********User Login******** */
+
+module.exports.userLogin = async (req, res) => {
+  console.log("Req Body: ", req.body);
+
+  const errorMessage = [];
+
+  const { email, password } = req.body;
+
+  console.log("Login is called");
 };
