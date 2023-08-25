@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { userRegisterDispatch } from "../store/actions/authAction.js";
@@ -67,6 +67,12 @@ const Register = () => {
     dispatch(userRegisterDispatch(formData));
     console.log(formData);
   };
+
+  useEffect(() => {
+    if (successMessage) {
+      alert.success(successMessage);
+    }
+  }, [successMessage]);
 
   return (
     <div className="register">
