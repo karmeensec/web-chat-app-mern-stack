@@ -72,7 +72,11 @@ const Register = () => {
     if (successMessage) {
       alert.success(successMessage);
     }
-  }, [successMessage]);
+
+    if (error) {
+      error.map((err) => alert.error(err));
+    }
+  }, [successMessage, error]);
 
   return (
     <div className="register">
