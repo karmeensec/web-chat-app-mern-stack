@@ -158,5 +158,25 @@ module.exports.userLogin = async (req, res) => {
 
   const { email, password } = req.body;
 
+  if (!email) {
+    errorMessage.push("Please add your email!");
+  }
+
+  if (!password) {
+    errorMessage.push("Please add your password!");
+  }
+
+  if (email && !validator.isEmail(email)) {
+    errorMessage.push("Please add your valid email!");
+  }
+
+  if (errorMessage.length > 0) {
+    res.status(400).json({
+      error: {
+        errorMessage: errorMessage,
+      },
+    });
+  }
+
   console.log("Login is called");
 };
