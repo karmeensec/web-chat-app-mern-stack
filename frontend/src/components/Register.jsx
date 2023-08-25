@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { userRegisterDispatch } from "../store/actions/authAction.js";
+import { useAlert } from "react-alert";
 
 const Register = () => {
   const [userRegister, setUserRegister] = useState({
@@ -15,6 +16,13 @@ const Register = () => {
   const [loadImage, setLoadImage] = useState("");
 
   const dispatch = useDispatch();
+
+  const alert = useAlert();
+
+  const { loading, authenticate, error, successMessage, userInfo } =
+    useSelector((state) => state.auth);
+
+  console.log("User Info: ", userInfo);
 
   /* ********************************************** */
 
