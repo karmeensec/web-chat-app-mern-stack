@@ -1,5 +1,5 @@
 import axios from "axios";
-import { REGISTER_FAIL } from "../types/authTypes";
+import { REGISTER_FAIL, REGISTER_SUCCESS } from "../types/authTypes";
 
 export const userRegisterDispatch = (data) => {
   return async (dispatch) => {
@@ -17,7 +17,16 @@ export const userRegisterDispatch = (data) => {
         data,
         config
       );
-      console.log(response.data);
+
+      localStorage.setItem("authToken", response.data.token);
+
+      dispatch({
+        type: REGISTER_SUCCESS,
+        payload: {
+          successMessage: response.data.successMessage,
+          token: response.data.token,
+        },
+      });
     } catch (error) {
       dispatch({
         type: REGISTER_FAIL,
