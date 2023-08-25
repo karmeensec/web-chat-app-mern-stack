@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { userRegisterDispatch } from "../store/actions/authAction.js";
 import { useAlert } from "react-alert";
@@ -23,6 +23,8 @@ const Register = () => {
     useSelector((state) => state.auth);
 
   console.log("User Info: ", userInfo);
+
+  const navigate = useNavigate();
 
   /* ********************************************** */
 
@@ -69,6 +71,10 @@ const Register = () => {
   };
 
   useEffect(() => {
+    if (authenticate) {
+      navigate("/");
+    }
+
     if (successMessage) {
       alert.success(successMessage);
     }
