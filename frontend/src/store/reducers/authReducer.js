@@ -1,6 +1,8 @@
 import {
   CLEAR_ERROR_MESSAGE,
   CLEAR_SUCCESS_MESSAGE,
+  LOGIN_FAIL,
+  LOGIN_SUCCESS,
   REGISTER_FAIL,
   REGISTER_SUCCESS,
 } from "../types/authTypes";
@@ -40,7 +42,7 @@ console.log("Get Token: ", getToken);
 export const authReducer = (state = authState, action) => {
   const { payload, type } = action;
 
-  if (type === REGISTER_FAIL) {
+  if (type === REGISTER_FAIL || type === LOGIN_FAIL) {
     return {
       ...state,
       error: payload.error,
@@ -50,7 +52,7 @@ export const authReducer = (state = authState, action) => {
     };
   }
 
-  if (type === REGISTER_SUCCESS) {
+  if (type === REGISTER_SUCCESS || type === LOGIN_SUCCESS) {
     const userInfo = tokenDecode(payload.token);
 
     return {
