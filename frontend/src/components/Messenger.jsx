@@ -31,15 +31,20 @@ const Messenger = () => {
 
             <div className="friend-search">
               <div className="search">
-                <button>
-                  <FaSistrix />
-                </button>
                 <input
                   type="text"
                   placeholder="Search"
                   className="form-control"
                 />
+                <button>
+                  <FaSistrix />
+                </button>
               </div>
+            </div>
+
+            <div className="active-friends"></div>
+            <div className="friends">
+              <div className="hover-friend"></div>
             </div>
           </div>
         </div>
