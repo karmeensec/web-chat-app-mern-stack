@@ -1,5 +1,7 @@
 import React from "react";
 import { FaEllipsis, FaRegPenToSquare, FaSistrix } from "react-icons/fa6";
+import ActiveFriend from "./ActiveFriend";
+import Friends from "./Friends";
 
 const Messenger = () => {
   return (
@@ -42,9 +44,13 @@ const Messenger = () => {
               </div>
             </div>
 
-            <div className="active-friends"></div>
+            <div className="active-friends">
+              <ActiveFriend />
+            </div>
             <div className="friends">
-              <div className="hover-friend"></div>
+              <div className="hover-friend active">
+                <Friends />
+              </div>
             </div>
           </div>
         </div>
