@@ -26,7 +26,7 @@ const Register = () => {
   const { loading, authenticate, error, successMessage, userInfo } =
     useSelector((state) => state.auth);
 
-  console.log("User Info: ", userInfo);
+  console.log("User Register Info: ", userInfo);
 
   const navigate = useNavigate();
 
@@ -58,7 +58,7 @@ const Register = () => {
 
   const handleRegisterSubmit = (e) => {
     e.preventDefault();
-    console.log("User State", userRegister);
+    console.log("User Register State", userRegister);
 
     const { userName, email, password, confirmPassword, image } = userRegister;
 
@@ -71,7 +71,7 @@ const Register = () => {
     formData.append("image", image);
 
     dispatch(userRegisterDispatch(formData));
-    console.log(formData);
+    console.log("User Register Form Data: ", formData);
   };
 
   useEffect(() => {
