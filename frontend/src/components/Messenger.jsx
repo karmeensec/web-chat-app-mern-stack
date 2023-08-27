@@ -2,6 +2,7 @@ import React from "react";
 import { FaEllipsis, FaRegPenToSquare, FaSistrix } from "react-icons/fa6";
 import ActiveFriend from "./ActiveFriend";
 import Friends from "./Friends";
+import Chat from "./Chat";
 
 const Messenger = () => {
   return (
@@ -54,6 +55,8 @@ const Messenger = () => {
             </div>
           </div>
         </div>
+
+        <Chat />
       </div>
     </div>
   );
