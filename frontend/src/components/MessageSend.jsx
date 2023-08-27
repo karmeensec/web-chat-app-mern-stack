@@ -8,8 +8,37 @@ import {
 } from "react-icons/fa6";
 
 const MessageSend = () => {
+  const emojis = [
+    "😀",
+    "👽",
+    "😄",
+    "😁",
+    "😆",
+    "❔",
+    "😂",
+    "🤣",
+    "😊",
+    "😇",
+    "🙂",
+    "🙃",
+    "😉",
+    "🥶",
+    "😍",
+    "😝",
+    "😜",
+    "🧐",
+    "🤓",
+    "😎",
+    "😕",
+    "🤑",
+    "🥴",
+    "😱",
+  ];
+
   return (
     <div className="message-send-section">
+      <input type="checkbox" name="" id="emoji" />
+
       <div className="file hover-attachment">
         <div className="add-attachment">Attach files</div>
         <FaFileCirclePlus />
@@ -41,9 +70,17 @@ const MessageSend = () => {
             <FaRegPaperPlane />
           </label>
         </div>
+      </div>
 
-        <div className="file">
-          <FaShieldHeart />
+      <div className="file">
+        <FaShieldHeart />
+      </div>
+
+      <div className="emoji-section">
+        <div className="emoji">
+          {emojis.map((emoji) => (
+            <span>{emoji}</span>
+          ))}
         </div>
       </div>
     </div>
