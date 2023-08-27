@@ -4,6 +4,8 @@ import { FaGears, FaUserLock, FaImages } from "react-icons/fa6";
 const FriendInfo = () => {
   return (
     <div className="friend-info">
+      <input type="checkbox" name="" id="gallery" />
+
       <div className="image-name">
         <div className="image">
           <img src="" alt="" />
@@ -29,7 +31,9 @@ const FriendInfo = () => {
 
         <div className="media">
           <h3>Shared Media</h3>
-          <FaImages />
+          <label htmlFor="gallery">
+            <FaImages />
+          </label>
         </div>
       </div>
 
