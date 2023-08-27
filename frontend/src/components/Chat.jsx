@@ -1,5 +1,6 @@
 import React from "react";
 import { FaPhoneFlip, FaVideo, FaRocketchat } from "react-icons/fa6";
+import Message from "./Message";
 
 const Chat = () => {
   return (
@@ -33,6 +34,8 @@ const Chat = () => {
                   </div>
                 </div>
               </div>
+
+              <Message />
             </div>
           </div>
 
