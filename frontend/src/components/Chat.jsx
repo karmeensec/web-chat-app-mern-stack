@@ -8,6 +8,8 @@ const Chat = () => {
   return (
     <div className="col-9">
       <div className="right-side">
+        <input type="checkbox" name="" id="dot" />
+
         <div className="row">
           <div className="col-8">
             <div className="message-send-show">
@@ -32,7 +34,9 @@ const Chat = () => {
                   </div>
 
                   <div className="icon">
-                    <FaRocketchat />
+                    <label htmlFor="dot">
+                      <FaRocketchat />
+                    </label>
                   </div>
                 </div>
               </div>
