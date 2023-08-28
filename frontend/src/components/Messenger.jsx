@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { FaEllipsis, FaRegPenToSquare, FaSistrix } from "react-icons/fa6";
 import ActiveFriend from "./ActiveFriend";
 import Friends from "./Friends";
@@ -7,6 +7,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUserFriends } from "../store/actions/messengerAction";
 
 const Messenger = () => {
+  const [currentFriend, setCurrentFriend] = useState("");
+
+  console.log("CurrentFriend", currentFriend);
+
   const dispatch = useDispatch();
 
   const { friends } = useSelector((state) => state.messenger);
@@ -17,6 +21,10 @@ const Messenger = () => {
   useEffect(() => {
     dispatch(getUserFriends());
   }, []);
+
+  const handleClickFriend = (friend) => {
+    setCurrentFriend(friend);
+  };
 
   return (
     <div className="messenger">
@@ -64,7 +72,11 @@ const Messenger = () => {
             <div className="friends">
               {friends && friends.length > 0
                 ? friends.map((friend) => (
-                    <div className="hover-friend " key={friend._id}>
+                    <div
+                      className="hover-friend "
+                      key={friend._id}
+                      onClick={() => handleClickFriend(friend)}
+                    >
                       <Friends friend={friend} />
                     </div>
                   ))
