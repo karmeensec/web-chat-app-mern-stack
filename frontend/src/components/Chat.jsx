@@ -4,7 +4,7 @@ import Message from "./Message";
 import MessageSend from "./MessageSend";
 import FriendInfo from "./FriendInfo";
 
-const Chat = () => {
+const Chat = ({ currentFriend }) => {
   return (
     <div className="col-9">
       <div className="right-side">
@@ -16,11 +16,11 @@ const Chat = () => {
               <div className="header">
                 <div className="image-name">
                   <div className="image">
-                    <img src="" alt="" />
+                    <img src={`./images/${currentFriend.image}`} alt="" />
                   </div>
 
                   <div className="name">
-                    <h3>Kamil Isma</h3>
+                    <h3> {currentFriend.userName} </h3>
                   </div>
                 </div>
 
@@ -47,7 +47,7 @@ const Chat = () => {
           </div>
 
           <div className="col-4">
-            <FriendInfo />
+            <FriendInfo currentFriend={currentFriend} />
           </div>
         </div>
       </div>

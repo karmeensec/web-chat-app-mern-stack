@@ -1,20 +1,20 @@
 import React from "react";
 import { FaGears, FaUserLock, FaImages } from "react-icons/fa6";
 
-const FriendInfo = () => {
+const FriendInfo = ({ currentFriend }) => {
   return (
     <div className="friend-info">
       <input type="checkbox" name="" id="gallery" />
 
       <div className="image-name">
         <div className="image">
-          <img src="" alt="" />
+          <img src={`./images/${currentFriend.image}`} alt="" />
         </div>
 
         <div className="active-user">Active</div>
 
         <div className="name">
-          <h4>Kamil Isma</h4>
+          <h4>{currentFriend.userName}</h4>
         </div>
       </div>
 
