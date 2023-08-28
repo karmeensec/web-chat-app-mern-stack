@@ -85,7 +85,7 @@ const Messenger = () => {
           </div>
         </div>
 
-        <Chat />
+        {currentFriend ? <Chat /> : "Tap to any friends to chat"}
       </div>
     </div>
   );
