@@ -20,3 +20,9 @@ export const getUserFriends = () => {
     }
   };
 };
+
+export const sendUserMessage = (data) => {
+  return async (dispatch) => {
+    console.log("User message send data: ", data);
+  };
+};
