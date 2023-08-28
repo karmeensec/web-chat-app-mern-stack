@@ -9,6 +9,10 @@ import { getUserFriends } from "../store/actions/messengerAction";
 const Messenger = () => {
   const dispatch = useDispatch();
 
+  const { friends } = useSelector((state) => state.messenger);
+
+  console.log("Selector friends: ", friends);
+
   useEffect(() => {
     dispatch(getUserFriends());
   }, []);
@@ -57,9 +61,13 @@ const Messenger = () => {
               <ActiveFriend />
             </div>
             <div className="friends">
-              <div className="hover-friend active">
-                <Friends />
-              </div>
+              {friends && friends.length > 0
+                ? friends.map((friend) => (
+                    <div className="hover-friend " key={friend._id}>
+                      <Friends friend={friend} />
+                    </div>
+                  ))
+                : "You don't have any friends"}
             </div>
           </div>
         </div>
