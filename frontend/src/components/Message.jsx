@@ -1,6 +1,6 @@
 import React from "react";
 
-const Message = () => {
+const Message = ({ currentFriend }) => {
   return (
     <div className="message-show">
       <div className="my-message">
@@ -15,7 +15,7 @@ const Message = () => {
 
       <div className="friend-message">
         <div className="image-message-time">
-          <img src="" alt="" />
+          <img src={`./images/${currentFriend.image}`} alt="" />
 
           <div className="message-time">
             <div className="friend-text">
