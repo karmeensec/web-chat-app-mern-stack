@@ -4,6 +4,7 @@ const dotenv = require("dotenv");
 
 const dbConnect = require("./config/database");
 const authRouter = require("./routes/authRoute");
+const messengerRouter = require("./routes/messengerRoute");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 
@@ -20,6 +21,7 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 app.use("/api/messenger", authRouter);
+app.use("/api/messenger", messengerRouter);
 
 dbConnect();
 
