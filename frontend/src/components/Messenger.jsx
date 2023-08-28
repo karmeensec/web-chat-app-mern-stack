@@ -8,6 +8,7 @@ import { getUserFriends } from "../store/actions/messengerAction";
 
 const Messenger = () => {
   const [currentFriend, setCurrentFriend] = useState("");
+  const [newMessage, setNewMessage] = useState("");
 
   console.log("CurrentFriend", currentFriend);
 
@@ -24,6 +25,15 @@ const Messenger = () => {
 
   const handleClickFriend = (friend) => {
     setCurrentFriend(friend);
+  };
+
+  const handleInputMessageChange = (e) => {
+    setNewMessage(e.target.value);
+  };
+
+  const handleSendMessageClick = (e) => {
+    e.preventDefault();
+    console.log("New Message: ", newMessage);
   };
 
   return (
@@ -86,7 +96,12 @@ const Messenger = () => {
         </div>
 
         {currentFriend ? (
-          <Chat currentFriend={currentFriend} />
+          <Chat
+            currentFriend={currentFriend}
+            handleInputMessageChange={handleInputMessageChange}
+            newMessage={newMessage}
+            handleSendMessageClick={handleSendMessageClick}
+          />
         ) : (
           "Tap to any friends to chat"
         )}
