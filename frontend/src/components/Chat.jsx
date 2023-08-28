@@ -4,7 +4,12 @@ import Message from "./Message";
 import MessageSend from "./MessageSend";
 import FriendInfo from "./FriendInfo";
 
-const Chat = ({ currentFriend }) => {
+const Chat = ({
+  currentFriend,
+  handleInputMessageChange,
+  newMessage,
+  handleSendMessageClick,
+}) => {
   return (
     <div className="col-9">
       <div className="right-side">
@@ -42,7 +47,11 @@ const Chat = ({ currentFriend }) => {
               </div>
 
               <Message />
-              <MessageSend />
+              <MessageSend
+                handleInputMessageChange={handleInputMessageChange}
+                newMessage={newMessage}
+                handleSendMessageClick={handleSendMessageClick}
+              />
             </div>
           </div>
 
