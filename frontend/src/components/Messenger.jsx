@@ -10,6 +10,7 @@ const Messenger = () => {
   const dispatch = useDispatch();
 
   const { friends } = useSelector((state) => state.messenger);
+  const { userInfo } = useSelector((state) => state.auth);
 
   console.log("Selector friends: ", friends);
 
@@ -25,11 +26,11 @@ const Messenger = () => {
             <div className="top">
               <div className="image-name">
                 <div className="image">
-                  <img src="./images/" alt="" />
+                  <img src={`./images/${userInfo.image}`} alt="" />
                 </div>
 
                 <div className="name">
-                  <h3>Hi Me</h3>
+                  <h3>{userInfo.userName}</h3>
                 </div>
               </div>
 
