@@ -4,7 +4,10 @@ import ActiveFriend from "./ActiveFriend";
 import Friends from "./Friends";
 import Chat from "./Chat";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserFriends } from "../store/actions/messengerAction";
+import {
+  getUserFriends,
+  sendUserMessage,
+} from "../store/actions/messengerAction";
 
 const Messenger = () => {
   const [currentFriend, setCurrentFriend] = useState("");
@@ -40,6 +43,14 @@ const Messenger = () => {
   const handleSendMessageClick = (e) => {
     e.preventDefault();
     console.log("New Message: ", newMessage);
+
+    const data = {
+      senderName: userInfo.userName,
+      receiverName: currentFriend._id,
+      message: newMessage,
+    };
+
+    dispatch(sendUserMessage(data));
   };
 
   return (
