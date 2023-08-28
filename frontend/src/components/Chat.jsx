@@ -46,7 +46,7 @@ const Chat = ({
                 </div>
               </div>
 
-              <Message />
+              <Message currentFriend={currentFriend} />
               <MessageSend
                 handleInputMessageChange={handleInputMessageChange}
                 newMessage={newMessage}
