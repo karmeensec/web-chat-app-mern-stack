@@ -23,6 +23,12 @@ const Messenger = () => {
     dispatch(getUserFriends());
   }, []);
 
+  useEffect(() => {
+    if (friends && friends.length > 0) {
+      setCurrentFriend(friends[0]);
+    }
+  }, [friends]);
+
   const handleClickFriend = (friend) => {
     setCurrentFriend(friend);
   };
