@@ -18,8 +18,9 @@ const Login = () => {
 
   const alert = useAlert();
 
-  const { loading, authenticate, error, successMessage, userInfo } =
-    useSelector((state) => state.auth);
+  const { authenticate, error, successMessage, userInfo } = useSelector(
+    (state) => state.auth
+  );
 
   console.log("User Login Info: ", userInfo);
 

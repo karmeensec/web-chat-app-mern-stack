@@ -3,7 +3,7 @@ import { FaEllipsis, FaRegPenToSquare, FaSistrix } from "react-icons/fa6";
 import ActiveFriend from "./ActiveFriend";
 import Friends from "./Friends";
 import Chat from "./Chat";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getUserFriends } from "../store/actions/messengerAction";
 
 const Messenger = () => {
