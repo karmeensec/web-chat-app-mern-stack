@@ -24,5 +24,12 @@ export const getUserFriends = () => {
 export const sendUserMessage = (data) => {
   return async (dispatch) => {
     console.log("User message send data: ", data);
+
+    try {
+      const response = await axios.post("/api/messenger/send-message", data);
+      console.log("Send Response Message: ", response.data);
+    } catch (error) {
+      console.log("Send Message error: ", error.response.data);
+    }
   };
 };
