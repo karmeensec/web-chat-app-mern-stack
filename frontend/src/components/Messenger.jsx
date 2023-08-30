@@ -46,7 +46,7 @@ const Messenger = () => {
 
     const data = {
       senderName: userInfo.userName,
-      receiverName: currentFriend._id,
+      receiverId: currentFriend._id,
       message: newMessage,
     };
 
