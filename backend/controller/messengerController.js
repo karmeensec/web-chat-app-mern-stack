@@ -26,3 +26,9 @@ module.exports.userGetFriends = async (req, res) => {
     });
   }
 };
+
+module.exports.userSendMessage = async (req, res) => {
+  console.log("User Send Message called");
+
+  console.log("userSendMessage Req body: ", req.body);
+};
