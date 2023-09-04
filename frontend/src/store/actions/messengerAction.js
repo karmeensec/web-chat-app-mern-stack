@@ -2,6 +2,7 @@ import axios from "axios";
 import {
   GET_FRIEND_SUCCESS,
   GET_MESSAGE_SUCCESS,
+  SEND_MESSAGE_SUCCESS,
 } from "../types/messengerType";
 
 export const getUserFriends = () => {
@@ -31,6 +32,13 @@ export const sendUserMessage = (data) => {
     try {
       const response = await axios.post("/api/messenger/send-message", data);
       console.log("Send Response Message: ", response.data);
+
+      dispatch({
+        type: SEND_MESSAGE_SUCCESS,
+        payload: {
+          message: response.data.message,
+        },
+      });
     } catch (error) {
       console.log("Send Message error: ", error.response.data);
     }
