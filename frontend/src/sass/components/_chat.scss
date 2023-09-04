@@ -20,28 +20,28 @@
             flex-direction: row;
             align-items: center;
             justify-content: space-between;
-            padding: 12px 10px;
-            border-bottom: 1px solid var(--border-color);
+            padding: 0.75rem 0.6rem;
+            border-bottom: 0.06rem solid var(--border-color);
             .image-name {
               display: flex;
               .image {
                 position: relative;
-                width: 40px;
-                height: 40px;
+                width: 2.5rem;
+                height: 2.5rem;
 
                 img {
-                  width: 40px;
-                  height: 40px;
+                  width: 2.5rem;
+                  height: 2.5rem;
                   border-radius: 50%;
                 }
                 .active-icon {
                   position: absolute;
-                  width: 10px;
-                  height: 10px;
+                  width: 0.6rem;
+                  height: 0.6rem;
                   border-radius: 50%;
                   background-color: rgb(28, 212, 28);
-                  right: 0px;
-                  bottom: 0pc;
+                  right: 0;
+                  bottom: 0;
                 }
               }
               .name {
@@ -49,7 +49,7 @@
                 justify-content: center;
                 align-items: center;
                 h3 {
-                  padding-left: 10px;
+                  padding-left: 0.6rem;
                   color: var(--text-color);
                 }
               }
@@ -57,11 +57,11 @@
             .icons {
               display: flex;
               .icon {
-                height: 35px;
-                width: 35px;
+                height: 2.1rem;
+                width: 2.1rem;
                 border-radius: 50%;
-                margin-left: 8px;
-                border-radius: 24px;
+                margin-left: 0.5rem;
+                border-radius: 1.5rem;
                 color: var(--icon-color);
                 cursor: pointer;
                 background-color: var(--icon-bg-color);
@@ -90,10 +90,10 @@
       width: 100%;
     }
     #dot:checked ~ .row .col-8 .message-show .my-message .my-text {
-      width: 500px;
+      width: 35.25rem;
     }
     #dot:checked ~ .row .col-8 .message-show .friend-message .friend-text {
-      width: 500px;
+      width: 35.25rem;
     }
   }
 }
