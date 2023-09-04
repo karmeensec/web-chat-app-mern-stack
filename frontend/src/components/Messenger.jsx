@@ -18,10 +18,11 @@ const Messenger = () => {
 
   const dispatch = useDispatch();
 
-  const { friends } = useSelector((state) => state.messenger);
+  const { friends, message } = useSelector((state) => state.messenger);
   const { userInfo } = useSelector((state) => state.auth);
 
   console.log("Selector friends: ", friends);
+  console.log("Selector message: ", message);
 
   useEffect(() => {
     dispatch(getUserFriends());
@@ -127,6 +128,7 @@ const Messenger = () => {
             handleInputMessageChange={handleInputMessageChange}
             newMessage={newMessage}
             handleSendMessageClick={handleSendMessageClick}
+            message={message}
           />
         ) : (
           "Tap to any friends to chat"
