@@ -35,7 +35,7 @@ const Messenger = () => {
   }, [friends]);
 
   useEffect(() => {
-    dispatch(getUserMessage(currentFriend?._id));
+    dispatch(getUserMessage(currentFriend._id));
   }, [currentFriend?._id]);
 
   const handleClickFriend = (friend) => {
