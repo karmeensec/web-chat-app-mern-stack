@@ -9,6 +9,7 @@ import {
   sendUserMessage,
   getUserMessage,
 } from "../store/actions/messengerAction";
+import { useRef } from "react";
 
 const Messenger = () => {
   const [currentFriend, setCurrentFriend] = useState("");
@@ -24,6 +25,8 @@ const Messenger = () => {
   console.log("Selector friends: ", friends);
   console.log("Selector message: ", message);
 
+  const scrollingRef = useRef();
+
   useEffect(() => {
     dispatch(getUserFriends());
   }, []);
@@ -37,6 +40,10 @@ const Messenger = () => {
   useEffect(() => {
     dispatch(getUserMessage(currentFriend._id));
   }, [currentFriend?._id]);
+
+  useEffect(() => {
+    scrollingRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [message]);
 
   const handleClickFriend = (friend) => {
     setCurrentFriend(friend);
@@ -129,6 +136,7 @@ const Messenger = () => {
             newMessage={newMessage}
             handleSendMessageClick={handleSendMessageClick}
             message={message}
+            scrollingRef={scrollingRef}
           />
         ) : (
           "Tap to any friends to chat"
