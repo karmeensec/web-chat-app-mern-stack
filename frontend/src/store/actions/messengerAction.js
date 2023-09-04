@@ -40,7 +40,7 @@ export const sendUserMessage = (data) => {
         },
       });
     } catch (error) {
-      console.log("Send Message error: ", error.response.data);
+      console.log("Send User Message error: ", error.response.data);
     }
   };
 };
@@ -60,11 +60,22 @@ export const getUserMessage = (id) => {
         },
       });
     } catch (error) {
-      console.log("Send Message error: ", error.response.data);
+      console.log("Get User Message error: ", error.response.data);
     }
   };
 };
 
 export const sendImageMessage = (data) => {
-  return async (dispatch) => {};
+  return async (dispatch) => {
+    try {
+      const response = await axios.post(
+        "/api/messenger/image-message-send",
+        data
+      );
+
+      console.log("sendImageMessage Response Message: ", response.data);
+    } catch (error) {
+      console.log("Send Image Message error: ", error.response.data);
+    }
+  };
 };
