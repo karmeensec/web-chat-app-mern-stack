@@ -12,6 +12,7 @@ const Chat = ({
   message,
   scrollingRef,
   sendEmoji,
+  sendImage,
 }) => {
   return (
     <div className="col-9">
@@ -59,6 +60,7 @@ const Chat = ({
                 newMessage={newMessage}
                 handleSendMessageClick={handleSendMessageClick}
                 sendEmoji={sendEmoji}
+                sendImage={sendImage}
               />
             </div>
           </div>
