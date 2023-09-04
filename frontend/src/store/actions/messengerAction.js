@@ -33,3 +33,16 @@ export const sendUserMessage = (data) => {
     }
   };
 };
+
+export const getUserMessage = (id) => {
+  return async (dispatch) => {
+    console.log("getUserMessage id: ", id);
+
+    try {
+      const response = await axios.get(`/api/messenger/get-message/${id}`);
+      console.log("Get Response Message: ", response.data);
+    } catch (error) {
+      console.log("Send Message error: ", error.response.data);
+    }
+  };
+};
