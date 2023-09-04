@@ -11,6 +11,7 @@ const MessageSend = ({
   handleInputMessageChange,
   newMessage,
   handleSendMessageClick,
+  sendEmoji,
 }) => {
   const emojis = [
     "😀",
@@ -85,7 +86,9 @@ const MessageSend = ({
       <div className="emoji-section">
         <div className="emoji">
           {emojis.map((emoji) => (
-            <span key={emoji}>{emoji}</span>
+            <span key={emoji} onClick={() => sendEmoji(emoji)}>
+              {emoji}
+            </span>
           ))}
         </div>
       </div>
