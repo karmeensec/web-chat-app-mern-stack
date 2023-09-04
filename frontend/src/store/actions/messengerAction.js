@@ -64,3 +64,7 @@ export const getUserMessage = (id) => {
     }
   };
 };
+
+export const sendImageMessage = (data) => {
+  return async (dispatch) => {};
+};
