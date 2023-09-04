@@ -12,6 +12,7 @@ const MessageSend = ({
   newMessage,
   handleSendMessageClick,
   sendEmoji,
+  sendImage,
 }) => {
   const emojis = [
     "😀",
@@ -51,6 +52,13 @@ const MessageSend = ({
 
       <div className="file hover-image">
         <div className="add-image">Attach an image</div>
+        <input
+          type="file"
+          name=""
+          id="pic"
+          className="form-control"
+          onChange={sendImage}
+        />
         <label htmlFor="pic">
           <FaFileImage />
         </label>
