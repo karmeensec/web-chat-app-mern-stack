@@ -1,5 +1,6 @@
 const userSchema = require("../models/authModel");
 const messageSchema = require("../models/messageModel");
+const formidable = require("formidable");
 
 module.exports.userGetFriends = async (req, res) => {
   console.log("User get friends called");
@@ -93,4 +94,25 @@ module.exports.userGetMessage = async (req, res) => {
       },
     });
   }
+};
+
+module.exports.userSendImageMessage = async (req, res) => {
+  const form = new formidable.IncomingForm();
+
+  form.parse(req, async (error, fields, files) => {
+    console.log("Fields: ", fields);
+    console.log("Files: ", files);
+
+    const { senderName, receiverId, imageName } = fields;
+    const { image } = files;
+
+    const newPath = __dirname + `../../../frontend/public/images/${imageName}`;
+
+    console.log("New Path: ", newPath);
+
+    files.image.originalFilename = imageName;
+
+    try {
+    } catch (error) {}
+  });
 };
