@@ -64,6 +64,14 @@ const Messenger = () => {
     };
 
     dispatch(sendUserMessage(data));
+
+    setNewMessage("");
+  };
+
+  const sendEmoji = (emoji) => {
+    console.log("Emoji: ", emoji);
+
+    setNewMessage(`${newMessage} ` + emoji);
   };
 
   return (
@@ -137,6 +145,7 @@ const Messenger = () => {
             handleSendMessageClick={handleSendMessageClick}
             message={message}
             scrollingRef={scrollingRef}
+            sendEmoji={sendEmoji}
           />
         ) : (
           "Tap to any friends to chat"
