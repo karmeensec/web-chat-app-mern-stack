@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   getUserFriends,
   sendUserMessage,
+  getUserMessage,
 } from "../store/actions/messengerAction";
 
 const Messenger = () => {
@@ -31,6 +32,10 @@ const Messenger = () => {
       setCurrentFriend(friends[0]);
     }
   }, [friends]);
+
+  useEffect(() => {
+    dispatch(getUserMessage(currentFriend?._id));
+  }, [currentFriend?._id]);
 
   const handleClickFriend = (friend) => {
     setCurrentFriend(friend);
