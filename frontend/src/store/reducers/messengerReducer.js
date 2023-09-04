@@ -1,6 +1,7 @@
 import {
   GET_FRIEND_SUCCESS,
   GET_MESSAGE_SUCCESS,
+  SEND_MESSAGE_SUCCESS,
 } from "../types/messengerType";
 
 const messengerState = {
@@ -15,6 +16,13 @@ export const messengerReducer = (state = messengerState, action) => {
     return {
       ...state,
       friends: payload.friends,
+    };
+  }
+
+  if (type === SEND_MESSAGE_SUCCESS) {
+    return {
+      ...state,
+      message: [...state.message, payload.message],
     };
   }
 
