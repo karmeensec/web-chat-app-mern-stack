@@ -10,6 +10,7 @@ const Chat = ({
   newMessage,
   handleSendMessageClick,
   message,
+  scrollingRef,
 }) => {
   return (
     <div className="col-9">
@@ -47,7 +48,11 @@ const Chat = ({
                 </div>
               </div>
 
-              <Message currentFriend={currentFriend} message={message} />
+              <Message
+                currentFriend={currentFriend}
+                message={message}
+                scrollingRef={scrollingRef}
+              />
               <MessageSend
                 handleInputMessageChange={handleInputMessageChange}
                 newMessage={newMessage}
