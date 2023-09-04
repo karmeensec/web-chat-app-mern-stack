@@ -9,6 +9,7 @@ const Chat = ({
   handleInputMessageChange,
   newMessage,
   handleSendMessageClick,
+  message,
 }) => {
   return (
     <div className="col-9">
@@ -46,7 +47,7 @@ const Chat = ({
                 </div>
               </div>
 
-              <Message currentFriend={currentFriend} />
+              <Message currentFriend={currentFriend} message={message} />
               <MessageSend
                 handleInputMessageChange={handleInputMessageChange}
                 newMessage={newMessage}
