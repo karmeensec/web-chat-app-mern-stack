@@ -8,6 +8,7 @@ import {
   getUserFriends,
   sendUserMessage,
   getUserMessage,
+  sendImageMessage,
 } from "../store/actions/messengerAction";
 import { useRef } from "react";
 
@@ -72,6 +73,26 @@ const Messenger = () => {
     console.log("Emoji: ", emoji);
 
     setNewMessage(`${newMessage} ` + emoji);
+  };
+
+  const sendImage = (e) => {
+    console.log("Image: ", e.target.files[0]);
+
+    if (e.target.files.length !== 0) {
+      const imageName = e.target.files[0].name;
+      const uniqueImageName = Date.now() + "-" + imageName;
+
+      console.log("uniqueImageName: ", uniqueImageName);
+
+      const formData = new FormData();
+
+      formData.append("senderName", userInfo.userName);
+      formData.append("receiverId", currentFriend._id);
+      formData.append("image", e.target.files[0]);
+      formData.append("imageName", uniqueImageName);
+
+      dispatch(sendImageMessage(formData));
+    }
   };
 
   return (
@@ -146,6 +167,7 @@ const Messenger = () => {
             message={message}
             scrollingRef={scrollingRef}
             sendEmoji={sendEmoji}
+            sendImage={sendImage}
           />
         ) : (
           "Tap to any friends to chat"
