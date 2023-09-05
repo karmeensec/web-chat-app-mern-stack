@@ -14,6 +14,7 @@ const Chat = ({
   sendEmoji,
   sendImage,
   activeUsers,
+  userTypingMessage,
 }) => {
   return (
     <div className="col-9">
@@ -65,6 +66,7 @@ const Chat = ({
                 currentFriend={currentFriend}
                 message={message}
                 scrollingRef={scrollingRef}
+                userTypingMessage={userTypingMessage}
               />
               <MessageSend
                 handleInputMessageChange={handleInputMessageChange}
