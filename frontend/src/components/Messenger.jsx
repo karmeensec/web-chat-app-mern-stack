@@ -251,6 +251,7 @@ const Messenger = () => {
             sendEmoji={sendEmoji}
             sendImage={sendImage}
             activeUsers={activeUsers}
+            userTypingMessage={userTypingMessage}
           />
         ) : (
           "Tap to any friends to chat"
