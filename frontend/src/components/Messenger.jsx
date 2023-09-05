@@ -154,6 +154,12 @@ const Messenger = () => {
     console.log("Emoji: ", emoji);
 
     setNewMessage(`${newMessage} ` + emoji);
+
+    socketRef.current.emit("typeInputMessage", {
+      senderId: userInfo.id,
+      receiverId: currentFriend._id,
+      message: emoji,
+    });
   };
 
   const sendImage = (e) => {
