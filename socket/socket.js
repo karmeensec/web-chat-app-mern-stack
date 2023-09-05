@@ -61,6 +61,20 @@ socketIO.on("connection", (socket) => {
     }
   });
 
+  socket.on("typeInputMessage", (data) => {
+    console.log("Typing Message Data: ", data);
+
+    const activeUserData = findActiveUser(data.receiverId);
+
+    if (activeUserData !== undefined) {
+      socket.to(activeUserData.socketId).emit("getTypeInputMessage", {
+        senderId: data.senderId,
+        receiverId: data.receiverId,
+        message: data.message,
+      });
+    }
+  });
+
   socket.on("disconnect", () => {
     console.log("User disconnected");
 
