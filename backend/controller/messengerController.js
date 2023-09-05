@@ -1,6 +1,7 @@
 const userSchema = require("../models/authModel");
 const messageSchema = require("../models/messageModel");
 const formidable = require("formidable");
+const fs = require("fs");
 
 module.exports.userGetFriends = async (req, res) => {
   console.log("User get friends called");
@@ -96,15 +97,22 @@ module.exports.userGetMessage = async (req, res) => {
   }
 };
 
-module.exports.userSendImageMessage = async (req, res) => {
+module.exports.userSendImageMessage = (req, res) => {
+  const senderId = req.userId;
   const form = new formidable.IncomingForm();
 
-  form.parse(req, async (error, fields, files) => {
+  form.parse(req, (error, fields, files) => {
     console.log("Fields: ", fields);
     console.log("Files: ", files);
 
-    const { senderName, receiverId, imageName } = fields;
+    const senderName = fields.senderName[0];
+    const receiverId = fields.receiverId[0];
+    const imageName = fields.imageName[0];
     const { image } = files;
+
+    console.log("Image is: ", image);
+
+    console.log("Image name: ", imageName);
 
     const newPath = __dirname + `../../../frontend/public/images/${imageName}`;
 
@@ -112,7 +120,41 @@ module.exports.userSendImageMessage = async (req, res) => {
 
     files.image.originalFilename = imageName;
 
+    console.log("files.image.originalFilename: ", files.image.originalFilename);
+
     try {
-    } catch (error) {}
+      console.log("File path: ", files.image[0].filepath);
+      fs.copyFile(files.image[0].filepath, newPath, async (error) => {
+        if (error) {
+          console.error("Image copy error:", error);
+          res.status(500).json({
+            error: {
+              errorMessage: "Failed to upload an image!",
+            },
+          });
+        } else {
+          const addMessage = await messageSchema.create({
+            senderId: senderId,
+            senderName: senderName,
+            receiverId: receiverId,
+            message: {
+              text: "",
+              image: files.image.originalFilename,
+            },
+          });
+
+          res.status(201).json({
+            success: true,
+            message: addMessage,
+          });
+        }
+      });
+    } catch (error) {
+      res.status(500).json({
+        error: {
+          errorMessage: "Internal Server Error",
+        },
+      });
+    }
   });
 };
