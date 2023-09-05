@@ -77,7 +77,10 @@ const Chat = ({
           </div>
 
           <div className="col-4">
-            <FriendInfo currentFriend={currentFriend} />
+            <FriendInfo
+              currentFriend={currentFriend}
+              activeUsers={activeUsers}
+            />
           </div>
         </div>
       </div>
