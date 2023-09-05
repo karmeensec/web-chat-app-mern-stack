@@ -16,6 +16,7 @@ import { io } from "socket.io-client";
 const Messenger = () => {
   const [currentFriend, setCurrentFriend] = useState("");
   const [newMessage, setNewMessage] = useState("");
+  const [activeUsers, setActiveUsers] = useState([]);
 
   console.log("CurrentFriend", currentFriend);
 
@@ -38,6 +39,18 @@ const Messenger = () => {
 
   useEffect(() => {
     socketRef.current.emit("addUser", userInfo.id, userInfo);
+  }, []);
+
+  useEffect(() => {
+    socketRef.current.on("getUser", (users) => {
+      console.log("Users: ", users);
+
+      const filteredUsers = users.filter(
+        (user) => user.userInfoId !== userInfo.id
+      );
+
+      setActiveUsers(filteredUsers);
+    });
   }, []);
 
   useEffect(() => {
@@ -148,7 +161,11 @@ const Messenger = () => {
             </div>
 
             <div className="active-friends">
-              <ActiveFriend />
+              {activeUsers && activeUsers.length > 0
+                ? activeUsers.map((activeUser) => (
+                    <ActiveFriend activeUser={activeUser} />
+                  ))
+                : ""}
             </div>
             <div className="friends">
               {friends && friends.length > 0
