@@ -19,6 +19,7 @@ const Messenger = () => {
   const [newMessage, setNewMessage] = useState("");
   const [activeUsers, setActiveUsers] = useState([]);
   const [userSocketMessage, setUserSocketMessage] = useState("");
+  const [userTypingMessage, setUserTypingMessage] = useState("");
 
   console.log("CurrentFriend", currentFriend);
 
@@ -42,6 +43,12 @@ const Messenger = () => {
       console.log("All data messages: ", data);
 
       setUserSocketMessage(data);
+    });
+
+    socketRef.current.on("getTypeInputMessage", (data) => {
+      console.log("All data getTypeInputMessage messages: ", data);
+
+      setUserTypingMessage(data);
     });
   }, []);
 
@@ -103,6 +110,12 @@ const Messenger = () => {
 
   const handleInputMessageChange = (e) => {
     setNewMessage(e.target.value);
+
+    socketRef.current.emit("typeInputMessage", {
+      senderId: userInfo.id,
+      receiverId: currentFriend._id,
+      message: e.target.value,
+    });
   };
 
   const handleSendMessageClick = (e) => {
