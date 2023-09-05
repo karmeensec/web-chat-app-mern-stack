@@ -1,7 +1,12 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
-const Message = ({ currentFriend, message, scrollingRef }) => {
+const Message = ({
+  currentFriend,
+  message,
+  scrollingRef,
+  userTypingMessage,
+}) => {
   const { userInfo } = useSelector((state) => state.auth);
 
   return (
@@ -50,19 +55,23 @@ const Message = ({ currentFriend, message, scrollingRef }) => {
           : ""}
       </div>
 
-      <div className="typing-message">
-        <div className="friend-message">
-          <div className="image-message-time">
-            <img src={`./images/${currentFriend.image}`} alt="" />
+      {userTypingMessage &&
+        userTypingMessage.message &&
+        userTypingMessage.senderId === currentFriend._id && (
+          <div className="typing-message">
+            <div className="friend-message">
+              <div className="image-message-time">
+                <img src={`./images/${currentFriend.image}`} alt="" />
 
-            <div className="message-time">
-              <div className="friend-text">
-                <p className="time">Typing...</p>
+                <div className="message-time">
+                  <div className="friend-text">
+                    <p className="time">Typing...</p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
+        )}
     </>
   );
 };
