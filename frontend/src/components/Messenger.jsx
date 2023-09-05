@@ -12,11 +12,13 @@ import {
 } from "../store/actions/messengerAction";
 import { useRef } from "react";
 import { io } from "socket.io-client";
+import { USER_SOCKET_MESSAGE } from "../store/types/messengerType";
 
 const Messenger = () => {
   const [currentFriend, setCurrentFriend] = useState("");
   const [newMessage, setNewMessage] = useState("");
   const [activeUsers, setActiveUsers] = useState([]);
+  const [userSocketMessage, setUserSocketMessage] = useState("");
 
   console.log("CurrentFriend", currentFriend);
 
@@ -38,8 +40,28 @@ const Messenger = () => {
 
     socketRef.current.on("getMessage", (data) => {
       console.log("All data messages: ", data);
+
+      setUserSocketMessage(data);
     });
   }, []);
+
+  useEffect(() => {
+    if (userSocketMessage && currentFriend) {
+      if (
+        userSocketMessage.senderId === currentFriend._id &&
+        userSocketMessage.receiverId === userInfo.id
+      ) {
+        dispatch({
+          type: USER_SOCKET_MESSAGE,
+          payload: {
+            message: userSocketMessage,
+          },
+        });
+      }
+    }
+
+    setUserSocketMessage("");
+  }, [userSocketMessage]);
 
   useEffect(() => {
     socketRef.current.emit("addUser", userInfo.id, userInfo);
