@@ -17,6 +17,10 @@ const addUser = (userInfoId, userInfo, socketId) => {
   }
 };
 
+const removeUser = (socketId) => {
+  users = users.filter((user) => user.socketId !== socketId);
+};
+
 socketIO.on("connection", (socket) => {
   console.log("Socket connection");
 
@@ -27,6 +31,14 @@ socketIO.on("connection", (socket) => {
     console.log("Socket id: ", socket.id);
 
     addUser(userInfoId, userInfo, socket.id);
+
+    socketIO.emit("getUser", users);
+  });
+
+  socket.on("disconnect", () => {
+    console.log("User disconnected");
+
+    removeUser(socket.id);
 
     socketIO.emit("getUser", users);
   });
