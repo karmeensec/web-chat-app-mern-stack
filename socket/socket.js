@@ -46,6 +46,19 @@ socketIO.on("connection", (socket) => {
     const activeUserData = findActiveUser(data.receiverId);
 
     console.log("Active User Data: ", activeUserData);
+
+    if (activeUserData !== undefined) {
+      socket.to(activeUserData.socketId).emit("getMessage", {
+        senderId: data.senderId,
+        senderName: data.senderName,
+        receiverId: data.receiverId,
+        createdAt: data.time,
+        message: {
+          text: data.message.text,
+          image: data.message.image,
+        },
+      });
+    }
   });
 
   socket.on("disconnect", () => {
