@@ -200,6 +200,7 @@ const Messenger = () => {
             scrollingRef={scrollingRef}
             sendEmoji={sendEmoji}
             sendImage={sendImage}
+            activeUsers={activeUsers}
           />
         ) : (
           "Tap to any friends to chat"
