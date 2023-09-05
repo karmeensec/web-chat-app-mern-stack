@@ -13,6 +13,7 @@ import {
 import { useRef } from "react";
 import { io } from "socket.io-client";
 import { USER_SOCKET_MESSAGE } from "../store/types/messengerType";
+import toast, { Toaster } from "react-hot-toast";
 
 const Messenger = () => {
   const [currentFriend, setCurrentFriend] = useState("");
@@ -103,6 +104,16 @@ const Messenger = () => {
   useEffect(() => {
     scrollingRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [message]);
+
+  useEffect(() => {
+    if (
+      userSocketMessage &&
+      userSocketMessage.senderId !== currentFriend._id &&
+      userSocketMessage.receiverId === userInfo.id
+    ) {
+      toast.success(`${userSocketMessage.senderName} sent a new message`);
+    }
+  }, [userSocketMessage]);
 
   const handleClickFriend = (friend) => {
     setCurrentFriend(friend);
@@ -195,6 +206,16 @@ const Messenger = () => {
 
   return (
     <div className="messenger">
+      <Toaster
+        position={"top-right"}
+        reverseOrder={false}
+        toastOptions={{
+          style: {
+            fontSize: "1.1rem",
+          },
+        }}
+      />
+
       <div className="row">
         <div className="col-3">
           <div className="left-side">
