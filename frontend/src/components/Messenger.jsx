@@ -139,6 +139,12 @@ const Messenger = () => {
       },
     });
 
+    socketRef.current.emit("typeInputMessage", {
+      senderId: userInfo.id,
+      receiverId: currentFriend._id,
+      message: "",
+    });
+
     dispatch(sendUserMessage(data));
 
     setNewMessage("");
@@ -158,6 +164,17 @@ const Messenger = () => {
       const uniqueImageName = Date.now() + "-" + imageName;
 
       console.log("uniqueImageName: ", uniqueImageName);
+
+      socketRef.current.emit("sendMessage", {
+        senderId: userInfo.id,
+        senderName: userInfo.userName,
+        receiverId: currentFriend._id,
+        time: new Date(),
+        message: {
+          text: "",
+          image: uniqueImageName,
+        },
+      });
 
       const formData = new FormData();
 
