@@ -67,13 +67,26 @@ export const getUserMessage = (id) => {
 
 export const sendImageMessage = (data) => {
   return async (dispatch) => {
+    const config = {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    };
     try {
       const response = await axios.post(
         "/api/messenger/image-message-send",
-        data
+        data,
+        config
       );
 
       console.log("sendImageMessage Response Message: ", response.data);
+
+      dispatch({
+        type: SEND_MESSAGE_SUCCESS,
+        payload: {
+          message: response.data.message,
+        },
+      });
     } catch (error) {
       console.log("Send Image Message error: ", error.response.data);
     }
