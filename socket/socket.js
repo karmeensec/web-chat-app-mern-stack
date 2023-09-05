@@ -21,6 +21,11 @@ const removeUser = (socketId) => {
   users = users.filter((user) => user.socketId !== socketId);
 };
 
+const findActiveUser = (id) => {
+  const activeUser = users.find((user) => user.userInfoId === id);
+  return activeUser;
+};
+
 socketIO.on("connection", (socket) => {
   console.log("Socket connection");
 
@@ -33,6 +38,14 @@ socketIO.on("connection", (socket) => {
     addUser(userInfoId, userInfo, socket.id);
 
     socketIO.emit("getUser", users);
+  });
+
+  socket.on("sendMessage", (data) => {
+    console.log("User Data: ", data);
+
+    const activeUserData = findActiveUser(data.receiverId);
+
+    console.log("Active User Data: ", activeUserData);
   });
 
   socket.on("disconnect", () => {
