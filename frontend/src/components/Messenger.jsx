@@ -35,6 +35,10 @@ const Messenger = () => {
 
   useEffect(() => {
     socketRef.current = io("ws://localhost:8000");
+
+    socketRef.current.on("getMessage", (data) => {
+      console.log("All data messages: ", data);
+    });
   }, []);
 
   useEffect(() => {
