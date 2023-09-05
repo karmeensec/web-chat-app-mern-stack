@@ -1,7 +1,7 @@
 import React from "react";
 import { FaGears, FaUserLock, FaImages } from "react-icons/fa6";
 
-const FriendInfo = ({ currentFriend }) => {
+const FriendInfo = ({ currentFriend, activeUsers }) => {
   return (
     <div className="friend-info">
       <input type="checkbox" name="" id="gallery" />
@@ -11,7 +11,15 @@ const FriendInfo = ({ currentFriend }) => {
           <img src={`./images/${currentFriend.image}`} alt="" />
         </div>
 
-        <div className="active-user">Active</div>
+        {activeUsers &&
+        activeUsers.length > 0 &&
+        activeUsers.some(
+          (activeUser) => activeUser.userInfoId === currentFriend._id
+        ) ? (
+          <div className="active-user">Active</div>
+        ) : (
+          <div className="inactive-user">Inactive</div>
+        )}
 
         <div className="name">
           <h4>{currentFriend.userName}</h4>
