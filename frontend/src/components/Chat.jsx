@@ -13,6 +13,7 @@ const Chat = ({
   scrollingRef,
   sendEmoji,
   sendImage,
+  activeUsers,
 }) => {
   return (
     <div className="col-9">
@@ -26,6 +27,16 @@ const Chat = ({
                 <div className="image-name">
                   <div className="image">
                     <img src={`./images/${currentFriend.image}`} alt="" />
+                    {activeUsers &&
+                    activeUsers.length > 0 &&
+                    activeUsers.some(
+                      (activeUser) =>
+                        activeUser.userInfoId === currentFriend._id
+                    ) ? (
+                      <div className="active-icon"></div>
+                    ) : (
+                      ""
+                    )}
                   </div>
 
                   <div className="name">
