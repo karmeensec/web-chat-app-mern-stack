@@ -1,11 +1,11 @@
 import React from "react";
 
-const ActiveFriend = () => {
+const ActiveFriend = ({ activeUser }) => {
   return (
     <div className="active-friend">
       <div className="image-active-icon">
         <div className="image">
-          <img src="" alt="" />
+          <img src={`./images/${activeUser.userInfo.image}`} alt="" />
 
           <div className="active-icon"></div>
         </div>
