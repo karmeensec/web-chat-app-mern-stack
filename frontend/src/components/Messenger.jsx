@@ -11,6 +11,7 @@ import {
   sendImageMessage,
 } from "../store/actions/messengerAction";
 import { useRef } from "react";
+import { io } from "socket.io-client";
 
 const Messenger = () => {
   const [currentFriend, setCurrentFriend] = useState("");
@@ -27,6 +28,13 @@ const Messenger = () => {
   console.log("Selector message: ", message);
 
   const scrollingRef = useRef();
+  const socketRef = useRef();
+
+  console.log("SocketRef: ", socketRef);
+
+  useEffect(() => {
+    socketRef.current = io("ws://localhost:8000");
+  });
 
   useEffect(() => {
     dispatch(getUserFriends());
