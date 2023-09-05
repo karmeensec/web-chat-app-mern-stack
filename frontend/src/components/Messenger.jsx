@@ -34,7 +34,11 @@ const Messenger = () => {
 
   useEffect(() => {
     socketRef.current = io("ws://localhost:8000");
-  });
+  }, []);
+
+  useEffect(() => {
+    socketRef.current.emit("addUser", userInfo.id, userInfo);
+  }, []);
 
   useEffect(() => {
     dispatch(getUserFriends());
