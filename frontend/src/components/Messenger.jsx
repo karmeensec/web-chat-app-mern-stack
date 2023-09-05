@@ -89,6 +89,17 @@ const Messenger = () => {
       message: newMessage,
     };
 
+    socketRef.current.emit("sendMessage", {
+      senderId: userInfo.id,
+      senderName: userInfo.userName,
+      receiverId: currentFriend._id,
+      time: new Date(),
+      message: {
+        text: newMessage,
+        image: "",
+      },
+    });
+
     dispatch(sendUserMessage(data));
 
     setNewMessage("");
