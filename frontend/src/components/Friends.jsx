@@ -38,6 +38,16 @@ const Friends = ({ friend, userInfo }) => {
             </span>
           </div>
         </div>
+
+        {userInfo === messageInfo?.senderId ? (
+          <div className="seen-unseen-icon">
+            <img src="./logos/seen.png" alt="" />
+          </div>
+        ) : (
+          <div className="seen-unseen-icon">
+            <img src="./logos/unseen.png" alt="" />
+          </div>
+        )}
       </div>
     </div>
   );
