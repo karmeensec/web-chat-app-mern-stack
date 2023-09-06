@@ -1,17 +1,42 @@
 import React from "react";
+import moment from "moment";
 
-const Friends = ({ friend }) => {
+const Friends = ({ friend, userInfo }) => {
+  const { friendInfo, messageInfo } = friend;
+
   return (
     <div className="friend">
       <div className="friend-image">
         <div className="image">
-          <img src={`./images/${friend.friendInfo.image}`} alt="" />
+          <img src={`./images/${friendInfo.image}`} alt="" />
         </div>
       </div>
 
       <div className="friend-name-seen">
         <div className="friend-name">
-          <h4>{friend.friendInfo.userName}</h4>
+          <h5>{friendInfo.userName}</h5>
+
+          <div className="msg-time">
+            {messageInfo &&
+              (messageInfo.senderId === userInfo ? (
+                <span>You</span>
+              ) : (
+                <span> {friendInfo.userName} : </span>
+              ))}
+            {messageInfo && messageInfo.message.text ? (
+              <span> {messageInfo.message.text.slice(0, 10)} </span>
+            ) : messageInfo && messageInfo.message.image ? (
+              <span> Sent an image </span>
+            ) : (
+              <span>You are now connected</span>
+            )}
+            {" - "}
+            <span>
+              {messageInfo
+                ? moment(messageInfo.createdAt).startOf("minute").fromNow()
+                : moment(friendInfo.createdAt).startOf("minute").fromNow()}
+            </span>
+          </div>
         </div>
       </div>
     </div>
