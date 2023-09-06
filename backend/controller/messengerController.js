@@ -3,23 +3,89 @@ const messageSchema = require("../models/messageModel");
 const formidable = require("formidable");
 const fs = require("fs");
 
+const getLastMessage = async (userId, friendId) => {
+  const message = await messageSchema
+    .findOne({
+      $or: [
+        {
+          $and: [
+            {
+              senderId: {
+                $eq: userId,
+              },
+            },
+
+            {
+              receiverId: {
+                $eq: friendId,
+              },
+            },
+          ],
+        },
+
+        {
+          $and: [
+            {
+              receiverId: {
+                $eq: userId,
+              },
+            },
+
+            {
+              senderId: {
+                $eq: friendId,
+              },
+            },
+          ],
+        },
+      ],
+    })
+    .sort({
+      updatedAt: -1,
+    });
+
+  return message;
+};
+
 module.exports.userGetFriends = async (req, res) => {
   console.log("User get friends called");
 
   const userId = req.userId;
   console.log("User Id: ", userId);
 
+  let friendMessage = [];
+
   try {
-    const friendData = await userSchema.find({});
+    const friendData = await userSchema.find({
+      _id: {
+        $ne: userId,
+      },
+    });
     console.log("Friends from database: ", friendData);
 
-    const filteredFriendData = friendData.filter(
-      (friend) => friend.id !== userId
-    );
+    for (let i = 0; i < friendData.length; i++) {
+      let lastMessage = await getLastMessage(userId, friendData[i].id);
+
+      console.log("Last Message: ", lastMessage);
+
+      friendMessage = [
+        ...friendMessage,
+        {
+          friendInfo: friendData[i],
+          messageInfo: lastMessage,
+        },
+      ];
+
+      console.log("Friend Message: ", friendMessage);
+    }
+
+    // const filteredFriendData = friendData.filter(
+    //   (friend) => friend.id !== userId
+    // );
 
     res.status(200).json({
       success: true,
-      friends: filteredFriendData,
+      friends: friendMessage,
     });
   } catch (error) {
     res.status(500).json({
@@ -74,13 +140,47 @@ module.exports.userGetMessage = async (req, res) => {
   const friendId = req.params.id;
 
   try {
-    let allMessages = await messageSchema.find({});
+    let allMessages = await messageSchema.find({
+      $or: [
+        {
+          $and: [
+            {
+              senderId: {
+                $eq: userId,
+              },
+            },
 
-    allMessages = allMessages.filter(
-      (message) =>
-        (message.senderId === userId && message.receiverId === friendId) ||
-        (message.receiverId === userId && message.senderId === friendId)
-    );
+            {
+              receiverId: {
+                $eq: friendId,
+              },
+            },
+          ],
+        },
+
+        {
+          $and: [
+            {
+              receiverId: {
+                $eq: userId,
+              },
+            },
+
+            {
+              senderId: {
+                $eq: friendId,
+              },
+            },
+          ],
+        },
+      ],
+    });
+
+    // allMessages = allMessages.filter(
+    //   (message) =>
+    //     (message.senderId === userId && message.receiverId === friendId) ||
+    //     (message.receiverId === userId && message.senderId === friendId)
+    // );
 
     console.log("All Messages: ", allMessages);
 
