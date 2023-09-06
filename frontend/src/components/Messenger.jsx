@@ -124,7 +124,7 @@ const Messenger = () => {
   }, [userSocketMessage]);
 
   const handleClickFriend = (friend) => {
-    setCurrentFriend(friend);
+    setCurrentFriend(friend.friendInfo);
   };
 
   const handleInputMessageChange = (e) => {
@@ -282,7 +282,7 @@ const Messenger = () => {
                 ? friends.map((friend) => (
                     <div
                       className={
-                        currentFriend._id === friend._id
+                        currentFriend._id === friend.friendInfo._id
                           ? "hover-friend active"
                           : "hover-friend"
                       }
