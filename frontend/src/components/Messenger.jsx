@@ -29,7 +29,9 @@ const Messenger = () => {
 
   const dispatch = useDispatch();
 
-  const { friends, message } = useSelector((state) => state.messenger);
+  const { friends, message, messageSendSuccess } = useSelector(
+    (state) => state.messenger
+  );
   const { userInfo } = useSelector((state) => state.auth);
 
   console.log("Selector friends: ", friends);
@@ -150,17 +152,6 @@ const Messenger = () => {
       message: newMessage,
     };
 
-    socketRef.current.emit("sendMessage", {
-      senderId: userInfo.id,
-      senderName: userInfo.userName,
-      receiverId: currentFriend._id,
-      time: new Date(),
-      message: {
-        text: newMessage,
-        image: "",
-      },
-    });
-
     socketRef.current.emit("typeInputMessage", {
       senderId: userInfo.id,
       receiverId: currentFriend._id,
@@ -171,6 +162,13 @@ const Messenger = () => {
 
     setNewMessage("");
   };
+
+  useEffect(() => {
+    if (messageSendSuccess) {
+      console.log("Message length: ", message[message.length - 1]);
+      socketRef.current.emit("sendMessage", message[message.length - 1]);
+    }
+  }, [messageSendSuccess]);
 
   const sendEmoji = (emoji) => {
     console.log("Emoji: ", emoji);
