@@ -92,3 +92,9 @@ export const sendImageMessage = (data) => {
     }
   };
 };
+
+export const seenMessage = (message) => {
+  return async (dispatch) => {
+    console.log("Seen Message: ", message);
+  };
+};
