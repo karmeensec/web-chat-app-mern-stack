@@ -77,6 +77,13 @@ const Messenger = () => {
             message: userSocketMessage,
           },
         });
+
+        dispatch({
+          type: "UPDATE_FRIEND_MESSAGE",
+          payload: {
+            messageInfo: userSocketMessage,
+          },
+        });
       }
     }
 
