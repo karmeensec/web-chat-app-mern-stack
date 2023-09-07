@@ -2,6 +2,8 @@ import {
   GET_FRIEND_SUCCESS,
   GET_MESSAGE_SUCCESS,
   SEND_MESSAGE_SUCCESS,
+  SEND_MESSAGE_SUCCESS_CLEAR,
+  UPDATE_FRIEND_MESSAGE,
   USER_SOCKET_MESSAGE,
 } from "../types/messengerType";
 
@@ -40,6 +42,25 @@ export const messengerReducer = (state = messengerState, action) => {
     return {
       ...state,
       message: [...state.message, payload.message],
+    };
+  }
+
+  if (type === UPDATE_FRIEND_MESSAGE) {
+    const index = state.friends.findIndex(
+      (friend) =>
+        friend.friendInfo._id === payload.messageInfo.receiverId ||
+        friend.friendInfo._id === payload.messageInfo.senderId
+    );
+
+    state.friends[index].messageInfo = payload.messageInfo;
+
+    return state;
+  }
+
+  if (type === SEND_MESSAGE_SUCCESS_CLEAR) {
+    return {
+      ...state,
+      messageSendSuccess: false,
     };
   }
 
