@@ -9,6 +9,7 @@ import {
   sendUserMessage,
   getUserMessage,
   sendImageMessage,
+  seenMessage,
 } from "../store/actions/messengerAction";
 import { useRef } from "react";
 import { io } from "socket.io-client";
@@ -77,6 +78,8 @@ const Messenger = () => {
             message: userSocketMessage,
           },
         });
+
+        dispatch(seenMessage(userSocketMessage));
 
         dispatch({
           type: "UPDATE_FRIEND_MESSAGE",
