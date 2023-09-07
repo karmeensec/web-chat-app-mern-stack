@@ -10,6 +10,7 @@ import {
   getUserMessage,
   sendImageMessage,
   seenMessage,
+  updateMessage,
 } from "../store/actions/messengerAction";
 import { useRef } from "react";
 import { io } from "socket.io-client";
@@ -136,6 +137,15 @@ const Messenger = () => {
       notificationsPlay();
 
       toast.success(`${userSocketMessage.senderName} sent a new message`);
+
+      dispatch(updateMessage(userSocketMessage));
+
+      dispatch({
+        type: "UPDATE_FRIEND_MESSAGE",
+        payload: {
+          messageInfo: userSocketMessage,
+        },
+      });
     }
   }, [userSocketMessage]);
 
