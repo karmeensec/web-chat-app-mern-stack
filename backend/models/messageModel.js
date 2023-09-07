@@ -29,7 +29,7 @@ const messageSchema = new Schema(
       },
     },
 
-    staus: {
+    status: {
       type: String,
       default: "unseen",
     },
