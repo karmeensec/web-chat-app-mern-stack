@@ -96,5 +96,30 @@ export const sendImageMessage = (data) => {
 export const seenMessage = (message) => {
   return async (dispatch) => {
     console.log("Seen Message: ", message);
+
+    try {
+      const response = await axios.post("/api/messenger/seen-message", message);
+
+      console.log("Seen Message Response Message: ", response.data);
+    } catch (error) {
+      console.log("Seen Message error: ", error.response.data);
+    }
+  };
+};
+
+export const updateMessage = (message) => {
+  return async (dispatch) => {
+    console.log("UpdateMessage Message: ", message);
+
+    try {
+      const response = await axios.post(
+        "/api/messenger/delivered-message",
+        message
+      );
+
+      console.log("UpdateMessage Response Message: ", response.data);
+    } catch (error) {
+      console.log("UpdateMessage error: ", error.response.data);
+    }
   };
 };
