@@ -258,3 +258,49 @@ module.exports.userSendImageMessage = (req, res) => {
     }
   });
 };
+
+module.exports.userSeenMessage = async (req, res) => {
+  try {
+    console.log("userSeenMessage Req Body:", req.body);
+
+    const messageId = req.body._id;
+
+    await messageSchema.findByIdAndUpdate(messageId, {
+      status: "seen",
+    });
+
+    res.status(200).json({
+      success: true,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      error: {
+        errorMessage: "Internal Server Error",
+      },
+    });
+  }
+};
+
+module.exports.userDeliveredMessage = async (req, res) => {
+  try {
+    console.log("userDeliveredMessage Req Body:", req.body);
+
+    const messageId = req.body._id;
+
+    await messageSchema.findByIdAndUpdate(messageId, {
+      status: "delivered",
+    });
+
+    res.status(200).json({
+      success: true,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      error: {
+        errorMessage: "Internal Server Error",
+      },
+    });
+  }
+};
