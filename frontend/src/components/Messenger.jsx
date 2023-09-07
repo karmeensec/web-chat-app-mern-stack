@@ -12,7 +12,11 @@ import {
 } from "../store/actions/messengerAction";
 import { useRef } from "react";
 import { io } from "socket.io-client";
-import { USER_SOCKET_MESSAGE } from "../store/types/messengerType";
+import {
+  SEND_MESSAGE_SUCCESS_CLEAR,
+  UPDATE_FRIEND_MESSAGE,
+  USER_SOCKET_MESSAGE,
+} from "../store/types/messengerType";
 import toast, { Toaster } from "react-hot-toast";
 import useSound from "use-sound";
 import notificationSound from "../audio/notification.mp3";
@@ -68,7 +72,7 @@ const Messenger = () => {
         userSocketMessage.receiverId === userInfo.id
       ) {
         dispatch({
-          type: USER_SOCKET_MESSAGE,
+          type: "USER_SOCKET_MESSAGE",
           payload: {
             message: userSocketMessage,
           },
@@ -167,6 +171,17 @@ const Messenger = () => {
     if (messageSendSuccess) {
       console.log("Message length: ", message[message.length - 1]);
       socketRef.current.emit("sendMessage", message[message.length - 1]);
+
+      dispatch({
+        type: "UPDATE_FRIEND_MESSAGE",
+        payload: {
+          messageInfo: message[message.length - 1],
+        },
+      });
+
+      dispatch({
+        type: "SEND_MESSAGE_SUCCESS_CLEAR",
+      });
     }
   }, [messageSendSuccess]);
 
