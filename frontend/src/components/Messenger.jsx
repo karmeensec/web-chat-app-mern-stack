@@ -65,6 +65,28 @@ const Messenger = () => {
 
       setUserTypingMessage(data);
     });
+
+    socketRef.current.on("deliveredMessageResponse", (message) => {
+      console.log("All data deliveredMessageResponse messages: ", message);
+
+      dispatch({
+        type: "DELIVERED_MESSAGE",
+        payload: {
+          messageInfo: message,
+        },
+      });
+    });
+
+    socketRef.current.on("messageSeenResponse", (message) => {
+      console.log("All data messageSeenResponse messages: ", message);
+
+      dispatch({
+        type: "SEEN_MESSAGE",
+        payload: {
+          messageInfo: message,
+        },
+      });
+    });
   }, []);
 
   useEffect(() => {
@@ -82,10 +104,13 @@ const Messenger = () => {
 
         dispatch(seenMessage(userSocketMessage));
 
+        socketRef.current.emit("messageSeen", userSocketMessage);
+
         dispatch({
           type: "UPDATE_FRIEND_MESSAGE",
           payload: {
             messageInfo: userSocketMessage,
+            status: "seen",
           },
         });
       }
@@ -116,7 +141,7 @@ const Messenger = () => {
 
   useEffect(() => {
     if (friends && friends.length > 0) {
-      setCurrentFriend(friends[0]);
+      setCurrentFriend(friends[0].friendInfo);
     }
   }, [friends]);
 
@@ -140,10 +165,13 @@ const Messenger = () => {
 
       dispatch(updateMessage(userSocketMessage));
 
+      socketRef.current.emit("deliveredMessage", userSocketMessage);
+
       dispatch({
         type: "UPDATE_FRIEND_MESSAGE",
         payload: {
           messageInfo: userSocketMessage,
+          status: "delivered",
         },
       });
     }
