@@ -26,17 +26,49 @@ const Friends = ({ friend, userInfo, activeUsers }) => {
 
       <div className="friend-name-seen">
         <div className="friend-name">
-          <h5>{friendInfo.userName}</h5>
+          <h5
+            className={
+              messageInfo?.senderId !== userInfo &&
+              messageInfo?.status !== undefined &&
+              messageInfo?.status !== "seen"
+                ? "unseen_message"
+                : ""
+            }
+          >
+            {friendInfo.userName}
+          </h5>
 
           <div className="msg-time">
             {messageInfo &&
               (messageInfo.senderId === userInfo ? (
                 <span>You</span>
               ) : (
-                <span> {friendInfo.userName} : </span>
+                <span
+                  className={
+                    messageInfo?.senderId !== userInfo &&
+                    messageInfo?.status !== undefined &&
+                    messageInfo?.status !== "seen"
+                      ? "unseen_message"
+                      : ""
+                  }
+                >
+                  {" "}
+                  {friendInfo.userName} :{" "}
+                </span>
               ))}
             {messageInfo && messageInfo.message.text ? (
-              <span> {messageInfo.message.text.slice(0, 10)} </span>
+              <span
+                className={
+                  messageInfo?.senderId !== userInfo &&
+                  messageInfo?.status !== undefined &&
+                  messageInfo?.status !== "seen"
+                    ? "unseen_message"
+                    : ""
+                }
+              >
+                {" "}
+                {messageInfo.message.text.slice(0, 10)}{" "}
+              </span>
             ) : messageInfo && messageInfo.message.image ? (
               <span> Sent an image </span>
             ) : (
