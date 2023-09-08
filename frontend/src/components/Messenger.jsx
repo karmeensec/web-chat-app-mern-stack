@@ -393,7 +393,11 @@ const Messenger = () => {
                       key={friend._id}
                       onClick={() => handleClickFriend(friend)}
                     >
-                      <Friends friend={friend} userInfo={userInfo.id} />
+                      <Friends
+                        friend={friend}
+                        userInfo={userInfo.id}
+                        activeUsers={activeUsers}
+                      />
                     </div>
                   ))
                 : "You don't have any friends"}
