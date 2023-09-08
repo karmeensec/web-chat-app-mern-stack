@@ -1,14 +1,26 @@
 import React from "react";
 import moment from "moment";
 
-const Friends = ({ friend, userInfo }) => {
+const Friends = ({ friend, userInfo, activeUsers }) => {
   const { friendInfo, messageInfo } = friend;
+
+  console.log("Active users: ", activeUsers);
 
   return (
     <div className="friend">
       <div className="friend-image">
         <div className="image">
           <img src={`./images/${friendInfo.image}`} alt="" />
+
+          {activeUsers &&
+          activeUsers.length > 0 &&
+          activeUsers.some(
+            (activeUser) => activeUser.userInfoId === friendInfo._id
+          ) ? (
+            <div className="active_icon"></div>
+          ) : (
+            ""
+          )}
         </div>
       </div>
 
