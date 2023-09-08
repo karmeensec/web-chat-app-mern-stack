@@ -14,7 +14,7 @@ const Message = ({
     <>
       <div className="message-show">
         {message && message.length > 0 ? (
-          message.map((m) =>
+          message.map((m, index) =>
             m.senderId === userInfo.id ? (
               <div className="my-message" ref={scrollingRef}>
                 <div className="image-message">
@@ -26,6 +26,23 @@ const Message = ({
                         m.message.text
                       )}
                     </p>
+
+                    {index === message.length - 1 &&
+                    m.senderId === userInfo.id ? (
+                      m.status === "seen" ? (
+                        <img
+                          className="img"
+                          src={`./images/${currentFriend.image}`}
+                          alt=""
+                        />
+                      ) : m.status === "delivered" ? (
+                        <img className="img" src="./logos/unseen.png" alt="" />
+                      ) : (
+                        <img className="img" src="./logos/unseen.png" alt="" />
+                      )
+                    ) : (
+                      ""
+                    )}
                   </div>
                 </div>
 
