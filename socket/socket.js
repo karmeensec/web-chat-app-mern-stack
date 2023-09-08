@@ -52,6 +52,32 @@ socketIO.on("connection", (socket) => {
     }
   });
 
+  socket.on("messageSeen", (message) => {
+    console.log("User messages: ", message);
+
+    const activeUserData = findActiveUser(message.senderId);
+
+    console.log("Active User Data: ", activeUserData);
+
+    if (activeUserData !== undefined) {
+      socket.to(activeUserData.socketId).emit("messageSeenResponse", message);
+    }
+  });
+
+  socket.on("deliveredMessage", (message) => {
+    console.log("User messages: ", message);
+
+    const activeUserData = findActiveUser(message.senderId);
+
+    console.log("Active User Data: ", activeUserData);
+
+    if (activeUserData !== undefined) {
+      socket
+        .to(activeUserData.socketId)
+        .emit("deliveredMessageResponse", message);
+    }
+  });
+
   socket.on("typeInputMessage", (data) => {
     console.log("Typing Message Data: ", data);
 
