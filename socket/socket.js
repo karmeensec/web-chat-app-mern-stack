@@ -64,6 +64,18 @@ socketIO.on("connection", (socket) => {
     }
   });
 
+  socket.on("seen", (data) => {
+    console.log("User seen data: ", data);
+
+    const activeUserData = findActiveUser(data.senderId);
+
+    console.log("Active User Data seen: ", activeUserData);
+
+    if (activeUserData !== undefined) {
+      socket.to(activeUserData.socketId).emit("seenSuccess", data);
+    }
+  });
+
   socket.on("deliveredMessage", (message) => {
     console.log("User messages: ", message);
 
