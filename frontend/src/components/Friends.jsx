@@ -70,7 +70,18 @@ const Friends = ({ friend, userInfo, activeUsers }) => {
                 {messageInfo.message.text.slice(0, 10)}{" "}
               </span>
             ) : messageInfo && messageInfo.message.image ? (
-              <span> Sent an image </span>
+              <span
+                className={
+                  messageInfo?.senderId !== userInfo &&
+                  messageInfo?.status !== undefined &&
+                  messageInfo?.status !== "seen"
+                    ? "unseen_message"
+                    : ""
+                }
+              >
+                {" "}
+                Sent an image{" "}
+              </span>
             ) : (
               <span>You are now connected</span>
             )}
