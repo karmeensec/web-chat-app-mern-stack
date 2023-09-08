@@ -35,9 +35,8 @@ const Messenger = () => {
 
   const dispatch = useDispatch();
 
-  const { friends, message, messageSendSuccess } = useSelector(
-    (state) => state.messenger
-  );
+  const { friends, message, messageSendSuccess, messageGetSuccess } =
+    useSelector((state) => state.messenger);
   const { userInfo } = useSelector((state) => state.auth);
 
   console.log("Selector friends: ", friends);
@@ -85,6 +84,15 @@ const Messenger = () => {
         payload: {
           messageInfo: message,
         },
+      });
+    });
+
+    socketRef.current.on("seenSuccess", (data) => {
+      console.log("All data seenSuccess messages: ", data);
+
+      dispatch({
+        type: "SEEN_ALL_SUCCESS",
+        payload: data,
       });
     });
   }, []);
@@ -149,14 +157,40 @@ const Messenger = () => {
     dispatch(getUserMessage(currentFriend._id));
 
     if (friends.length > 0) {
-      dispatch({
-        type: "UPDATE",
-        payload: {
-          id: currentFriend._id,
-        },
-      });
     }
   }, [currentFriend?._id]);
+
+  useEffect(() => {
+    if (message.length > 0) {
+      if (
+        message[message.length - 1].senderId !== userInfo.id &&
+        message[message.length - 1].status !== "seen"
+      ) {
+        dispatch({
+          type: "UPDATE",
+          payload: {
+            id: currentFriend._id,
+          },
+        });
+
+        socketRef.current.emit("seen", {
+          senderId: currentFriend.id,
+          receiverId: userInfo.id,
+        });
+
+        dispatch(
+          seenMessage({
+            _id: message[message.length - 1]._id,
+          })
+        );
+      }
+    }
+
+    dispatch({
+      type: "GET_MESSAGE_SUCCESS_CLEAR",
+      payload: {},
+    });
+  }, [messageGetSuccess]);
 
   useEffect(() => {
     scrollingRef.current?.scrollIntoView({ behavior: "smooth" });
