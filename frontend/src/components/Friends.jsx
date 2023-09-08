@@ -44,14 +44,19 @@ const Friends = ({ friend, userInfo }) => {
             {messageInfo.status === "seen" ? (
               <img src="./logos/seen.png" alt="" />
             ) : messageInfo.status === "delivered" ? (
-              <div>icon</div>
+              <img src="./logos/seen.png" alt="" />
             ) : (
-              <div>icon</div>
+              <img src="./logos/unseen.png" alt="" />
             )}
           </div>
         ) : (
           <div className="seen-unseen-icon">
-            <img src="./logos/unseen.png" alt="" />
+            {messageInfo?.status !== undefined &&
+            messageInfo?.status !== "seen" ? (
+              <img src="./logos/seen.png" alt="" />
+            ) : (
+              ""
+            )}
           </div>
         )}
       </div>
