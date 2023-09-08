@@ -2,6 +2,8 @@ import {
   DELIVERED_MESSAGE,
   GET_FRIEND_SUCCESS,
   GET_MESSAGE_SUCCESS,
+  GET_MESSAGE_SUCCESS_CLEAR,
+  SEEN_ALL_SUCCESS,
   SEEN_MESSAGE,
   SEND_MESSAGE_SUCCESS,
   SEND_MESSAGE_SUCCESS_CLEAR,
@@ -14,6 +16,7 @@ const messengerState = {
   friends: [],
   message: [],
   messageSendSuccess: false,
+  messageGetSuccess: false,
 };
 
 export const messengerReducer = (state = messengerState, action) => {
@@ -37,6 +40,7 @@ export const messengerReducer = (state = messengerState, action) => {
   if (type === GET_MESSAGE_SUCCESS) {
     return {
       ...state,
+      messageGetSuccess: true,
       message: payload.message,
     };
   }
@@ -101,6 +105,23 @@ export const messengerReducer = (state = messengerState, action) => {
     if (state.friends[index].messageInfo) {
       state.friends[index].messageInfo.status = "seen";
     }
+
+    return { ...state };
+  }
+
+  if (type === GET_MESSAGE_SUCCESS_CLEAR) {
+    return {
+      ...state,
+      messageGetSuccess: false,
+    };
+  }
+
+  if (type === SEEN_ALL_SUCCESS) {
+    const index = state.friends.findIndex(
+      (friend) => friend.friendInfo._id === payload.receiverId
+    );
+
+    state.friends[index].messageInfo.status = "seen";
 
     return { ...state };
   }
