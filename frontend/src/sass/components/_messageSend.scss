@@ -62,14 +62,14 @@
     width: 70%;
     height: 40px;
     background-color: var(--search-bg);
-    box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px,
-      rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;
+    box-shadow: rgba(255, 255, 255, 0.2) 0px 0px 0px 1px inset,
+      rgba(0, 0, 0, 0.9) 0px 0px 0px 1px;
     border-radius: 0.3rem;
     border: none;
     align-items: center;
     .form-control {
       width: 100%;
-
+      color: var(--text-color);
       background-color: transparent;
       border: none;
       &::placeholder {
@@ -84,8 +84,9 @@
   }
   .emoji-section {
     width: 200px;
-    background-color: #ecf0f1;
-    box-shadow: rgba(0, 0, 0, 0.18) 0px 2px 4px;
+    background-color: var(--bg-color);
+    box-shadow: rgba(255, 255, 255, 0.2) 0px 0px 0px 1px inset,
+      rgba(0, 0, 0, 0.9) 0px 0px 0px 1px;
     position: absolute;
     right: 60px;
     padding: 6px;

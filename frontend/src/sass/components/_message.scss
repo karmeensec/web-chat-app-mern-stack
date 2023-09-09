@@ -61,7 +61,7 @@
     .time {
       text-align: end;
       padding: 0.3rem 0;
-      color: #727272d9;
+      color: var(--time-text-color);
       font-size: 0.7rem;
     }
   }
@@ -103,8 +103,8 @@
   }
   .message-text {
     padding: 0.5rem;
-    color: #fff;
-    background-color: #1e8449;
+    background-color: var(--message-text-bg-color);
+    color: var(--message-text-color);
     font-size: 0.87rem;
     font-weight: 400;
   }

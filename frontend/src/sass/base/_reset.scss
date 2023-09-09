@@ -20,6 +20,9 @@
   --image-border-color: rgb(155, 153, 153);
   --active-icon-color: #5ad539;
   --hover-color: #bcbcc091;
+  --message-text-bg-color: #1e8449;
+  --message-text-color: #fff;
+  --time-text-color: #727272d9;
 }
 body {
   background-color: var(--bg-color);
@@ -28,14 +31,14 @@ body {
 
 .messenger.theme {
   --text-color: #fff;
-  --bg-color: #141b2bf0;
+  --bg-color: #0a192f;
   --border-color: #213156bf;
   --icon-bg-color: #0a0a1357;
   --active-color: #2b335591;
   --hover-color: #323a5c91;
   --friend-message-bg: #28324ed9;
   --my-message-bg: #28324ed9;
-  --search-bg: #15162559;
+  --search-bg: #0a192f;
   --text-white: #fff;
   --text-dark: #404040;
   --icon-color: #fff;
@@ -44,6 +47,9 @@ body {
   --friend-message-color: #fff;
   --active-icon-color: #5ad539;
   --image-border-color: #fff;
+  --message-text-bg-color: #e0ffff;
+  --message-text-color: #17202a;
+  --time-text-color: #d6dbdf;
 }
 a {
   text-decoration: none;
