@@ -53,18 +53,23 @@
             }
             .theme_logout {
               width: 200px;
-              background-color: rgb(20, 24, 59);
+              background-color: #f0f3f4;
+              box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em,
+                rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em,
+                rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+              border-radius: 0.5rem;
+              text-align: center;
               transform: scale(0);
               position: absolute;
-              transition: all 0.6s;
+              transition: all 0.2s;
               top: 100%;
               padding: 10px;
-              color: #fff;
+              color: #1c2833;
               .on,
               .off {
                 label {
                   cursor: pointer;
-                  color: #fff;
+                  color: #1c2833;
                 }
                 display: flex;
                 justify-content: space-between;
@@ -73,6 +78,7 @@
               .logout {
                 display: flex;
                 align-items: center;
+                justify-content: space-between;
                 margin-top: 10px;
                 cursor: pointer;
               }
