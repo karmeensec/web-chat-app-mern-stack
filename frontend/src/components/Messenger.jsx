@@ -4,6 +4,8 @@ import {
   FaRegPenToSquare,
   FaSistrix,
   FaRightFromBracket,
+  FaMoon,
+  FaSun,
 } from "react-icons/fa6";
 import Friends from "./Friends";
 import Chat from "./Chat";
@@ -383,7 +385,9 @@ const Messenger = () => {
                   <h3>Night/Light Mode</h3>
 
                   <div className="on">
-                    <label htmlFor="night">On</label>
+                    <label htmlFor="night">
+                      On <FaMoon />
+                    </label>
                     <input
                       type="radio"
                       name="theme"
@@ -394,7 +398,9 @@ const Messenger = () => {
                   </div>
 
                   <div className="off">
-                    <label htmlFor="light">Off</label>
+                    <label htmlFor="light">
+                      Off <FaSun />
+                    </label>
                     <input
                       type="radio"
                       name="theme"
