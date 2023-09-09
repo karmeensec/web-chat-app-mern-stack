@@ -1,5 +1,7 @@
 import { LOGOUT_SUCCESS } from "../types/authTypes";
 import {
+  ADD_NEW_USER,
+  ADD_NEW_USER_CLEAR,
   DELIVERED_MESSAGE,
   GET_FRIEND_SUCCESS,
   GET_MESSAGE_SUCCESS,
@@ -21,6 +23,7 @@ const messengerState = {
   messageSendSuccess: false,
   messageGetSuccess: false,
   themeMode: "",
+  add_new_user: "",
 };
 
 export const messengerReducer = (state = messengerState, action) => {
@@ -144,6 +147,20 @@ export const messengerReducer = (state = messengerState, action) => {
       message: [],
       messageSendSuccess: false,
       messageGetSuccess: false,
+    };
+  }
+
+  if (type === ADD_NEW_USER) {
+    return {
+      ...state,
+      add_new_user: payload.add_new_user,
+    };
+  }
+
+  if (type === ADD_NEW_USER_CLEAR) {
+    return {
+      ...state,
+      add_new_user: "",
     };
   }
 
