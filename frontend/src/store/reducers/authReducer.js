@@ -3,6 +3,8 @@ import {
   CLEAR_SUCCESS_MESSAGE,
   LOGIN_FAIL,
   LOGIN_SUCCESS,
+  LOGOUT_FAIL,
+  LOGOUT_SUCCESS,
   REGISTER_FAIL,
   REGISTER_SUCCESS,
 } from "../types/authTypes";
@@ -42,7 +44,7 @@ console.log("Get Token: ", getToken);
 export const authReducer = (state = authState, action) => {
   const { payload, type } = action;
 
-  if (type === REGISTER_FAIL || type === LOGIN_FAIL) {
+  if (type === REGISTER_FAIL || type === LOGIN_FAIL || type === LOGOUT_FAIL) {
     return {
       ...state,
       error: payload.error,
@@ -76,6 +78,15 @@ export const authReducer = (state = authState, action) => {
     return {
       ...state,
       error: "",
+    };
+  }
+
+  if (type === LOGOUT_SUCCESS) {
+    return {
+      ...state,
+      authenticate: false,
+      successMessage: "Logout Succesful",
+      userInfo: "",
     };
   }
 
