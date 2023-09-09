@@ -5,7 +5,6 @@ import {
   FaSistrix,
   FaRightFromBracket,
 } from "react-icons/fa6";
-import ActiveFriend from "./ActiveFriend";
 import Friends from "./Friends";
 import Chat from "./Chat";
 import { useDispatch, useSelector } from "react-redux";
@@ -19,11 +18,6 @@ import {
 } from "../store/actions/messengerAction";
 import { useRef } from "react";
 import { io } from "socket.io-client";
-import {
-  SEND_MESSAGE_SUCCESS_CLEAR,
-  UPDATE_FRIEND_MESSAGE,
-  USER_SOCKET_MESSAGE,
-} from "../store/types/messengerType";
 import toast, { Toaster } from "react-hot-toast";
 import useSound from "use-sound";
 import notificationSound from "../audio/notification.mp3";
