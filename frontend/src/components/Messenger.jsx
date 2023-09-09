@@ -40,8 +40,14 @@ const Messenger = () => {
 
   const dispatch = useDispatch();
 
-  const { friends, message, messageSendSuccess, messageGetSuccess, themeMode } =
-    useSelector((state) => state.messenger);
+  const {
+    friends,
+    message,
+    messageSendSuccess,
+    messageGetSuccess,
+    themeMode,
+    add_new_user,
+  } = useSelector((state) => state.messenger);
   const { userInfo } = useSelector((state) => state.auth);
 
   console.log("Selector friends: ", friends);
@@ -146,11 +152,24 @@ const Messenger = () => {
 
       setActiveUsers(filteredUsers);
     });
+
+    socketRef.current.on("add_new_user", (userData) => {
+      dispatch({
+        type: "ADD_NEW_USER",
+        payload: {
+          add_new_user: userData,
+        },
+      });
+    });
   }, []);
 
   useEffect(() => {
     dispatch(getUserFriends());
-  }, []);
+
+    dispatch({
+      type: "ADD_NEW_USER_CLEAR",
+    });
+  }, [add_new_user]);
 
   useEffect(() => {
     if (friends && friends.length > 0) {
@@ -344,6 +363,8 @@ const Messenger = () => {
     dispatch(getTheme());
   }, []);
 
+  const handleSearchFriendChange = (e) => {};
+
   return (
     <div className={themeMode === "night" ? "messenger theme" : "messenger"}>
       <Toaster
@@ -423,6 +444,7 @@ const Messenger = () => {
                   type="text"
                   placeholder="Search"
                   className="form-control"
+                  onChange={handleSearchFriendChange}
                 />
                 <button>
                   <FaSistrix />
