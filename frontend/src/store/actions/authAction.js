@@ -75,3 +75,14 @@ export const userLoginDispatch = (data) => {
     }
   };
 };
+
+export const userLogoutDispatch = (data) => {
+  return async (dispatch) => {
+    console.log("User logged out");
+    try {
+      const response = await axios.post("/api/messenger/user-logout", data);
+
+      localStorage.removeItem(response.data.token);
+    } catch (error) {}
+  };
+};
