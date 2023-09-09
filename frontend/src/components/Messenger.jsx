@@ -370,7 +370,7 @@ const Messenger = () => {
                 <div
                   className={isHidden ? "theme_logout" : "theme_logout show"}
                 >
-                  <h3>Night Mode</h3>
+                  <h3>Night/Light Mode</h3>
 
                   <div className="on">
                     <label htmlFor="night">On</label>
@@ -383,8 +383,7 @@ const Messenger = () => {
                   </div>
 
                   <div className="logout" onClick={handleLogoutClick}>
-                    <FaRightFromBracket />
-                    Sign Out
+                    Sign Out <FaRightFromBracket />
                   </div>
                 </div>
               </div>
