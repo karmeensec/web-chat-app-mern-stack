@@ -16,7 +16,7 @@ const Message = ({
         {message && message.length > 0 ? (
           message.map((m, index) =>
             m.senderId === userInfo.id ? (
-              <div className="my-message" ref={scrollingRef}>
+              <div className="my-message" ref={scrollingRef} key={index}>
                 <div className="image-message">
                   <div className="my-text">
                     <p className="message-text">
@@ -51,7 +51,7 @@ const Message = ({
                 </div>
               </div>
             ) : (
-              <div className="friend-message" ref={scrollingRef}>
+              <div className="friend-message" ref={scrollingRef} key={index}>
                 <div className="image-message-time">
                   <img src={`./images/${currentFriend.image}`} alt="" />
 
