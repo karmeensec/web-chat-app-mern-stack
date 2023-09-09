@@ -2,6 +2,8 @@ import axios from "axios";
 import {
   LOGIN_FAIL,
   LOGIN_SUCCESS,
+  LOGOUT_FAIL,
+  LOGOUT_SUCCESS,
   REGISTER_FAIL,
   REGISTER_SUCCESS,
 } from "../types/authTypes";
@@ -76,13 +78,27 @@ export const userLoginDispatch = (data) => {
   };
 };
 
-export const userLogoutDispatch = (data) => {
+export const userLogoutDispatch = () => {
   return async (dispatch) => {
     console.log("User logged out");
     try {
-      const response = await axios.post("/api/messenger/user-logout", data);
+      const response = await axios.post("/api/messenger/user-logout");
 
-      localStorage.removeItem(response.data.token);
-    } catch (error) {}
+      if (response.data.successMessage) {
+        localStorage.removeItem("authToken");
+
+        dispatch({
+          type: LOGOUT_SUCCESS,
+          payload: {
+            successMessage: response.data.successMessage,
+          },
+        });
+      }
+    } catch (error) {
+      dispatch({
+        type: LOGOUT_FAIL,
+        payload: { error: error.response.data.error.errorMessage },
+      });
+    }
   };
 };
