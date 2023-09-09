@@ -7,6 +7,8 @@ import {
   SEEN_MESSAGE,
   SEND_MESSAGE_SUCCESS,
   SEND_MESSAGE_SUCCESS_CLEAR,
+  THEME_GET_SUCCESS,
+  THEME_SET_SUCCESS,
   UPDATE,
   UPDATE_FRIEND_MESSAGE,
   USER_SOCKET_MESSAGE,
@@ -17,6 +19,7 @@ const messengerState = {
   message: [],
   messageSendSuccess: false,
   messageGetSuccess: false,
+  themeMode: "",
 };
 
 export const messengerReducer = (state = messengerState, action) => {
@@ -124,6 +127,13 @@ export const messengerReducer = (state = messengerState, action) => {
     state.friends[index].messageInfo.status = "seen";
 
     return { ...state };
+  }
+
+  if (type === THEME_GET_SUCCESS || type === THEME_SET_SUCCESS) {
+    return {
+      ...state,
+      themeMode: payload.theme,
+    };
   }
 
   return state;

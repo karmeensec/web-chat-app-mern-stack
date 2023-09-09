@@ -3,6 +3,8 @@ import {
   GET_FRIEND_SUCCESS,
   GET_MESSAGE_SUCCESS,
   SEND_MESSAGE_SUCCESS,
+  THEME_GET_SUCCESS,
+  THEME_SET_SUCCESS,
 } from "../types/messengerType";
 
 export const getUserFriends = () => {
@@ -121,5 +123,30 @@ export const updateMessage = (message) => {
     } catch (error) {
       console.log("UpdateMessage error: ", error.response.data);
     }
+  };
+};
+
+export const setTheme = (theme) => {
+  return async (dispatch) => {
+    localStorage.setItem("theme", theme);
+
+    dispatch({
+      type: THEME_SET_SUCCESS,
+      payload: {
+        theme: theme,
+      },
+    });
+  };
+};
+export const getTheme = () => {
+  return async (dispatch) => {
+    const theme = localStorage.getItem("theme");
+
+    dispatch({
+      type: THEME_GET_SUCCESS,
+      payload: {
+        theme: theme ? theme : "light",
+      },
+    });
   };
 };
