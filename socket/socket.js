@@ -26,6 +26,10 @@ const findActiveUser = (id) => {
   return activeUser;
 };
 
+const logoutUser = (userInfoId) => {
+  users = users.filter((user) => user.userInfoId !== userInfoId);
+};
+
 socketIO.on("connection", (socket) => {
   console.log("Socket connection");
 
@@ -102,6 +106,10 @@ socketIO.on("connection", (socket) => {
         message: data.message,
       });
     }
+  });
+
+  socket.on("logout", (userInfoId) => {
+    logoutUser(userInfoId);
   });
 
   socket.on("disconnect", () => {
