@@ -334,6 +334,8 @@ const Messenger = () => {
 
   const handleLogoutClick = () => {
     dispatch(userLogoutDispatch());
+
+    socketRef.current.emit("logout", userInfo.id);
   };
 
   return (
