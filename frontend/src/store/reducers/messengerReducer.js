@@ -1,3 +1,4 @@
+import { LOGOUT_SUCCESS } from "../types/authTypes";
 import {
   DELIVERED_MESSAGE,
   GET_FRIEND_SUCCESS,
@@ -133,6 +134,16 @@ export const messengerReducer = (state = messengerState, action) => {
     return {
       ...state,
       themeMode: payload.theme,
+    };
+  }
+
+  if (type === LOGOUT_SUCCESS) {
+    return {
+      ...state,
+      friends: [],
+      message: [],
+      messageSendSuccess: false,
+      messageGetSuccess: false,
     };
   }
 
