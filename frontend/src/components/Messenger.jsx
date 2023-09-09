@@ -35,6 +35,7 @@ const Messenger = () => {
   const [userSocketMessage, setUserSocketMessage] = useState("");
   const [userTypingMessage, setUserTypingMessage] = useState("");
   const [isHidden, setIsHidden] = useState(true);
+  const [filteredFriends, setFilteredFriends] = useState([]);
 
   console.log("CurrentFriend", currentFriend);
 
@@ -363,7 +364,17 @@ const Messenger = () => {
     dispatch(getTheme());
   }, []);
 
-  const handleSearchFriendChange = (e) => {};
+  const handleSearchFriendChange = (e) => {
+    const searchValue = e.target.value.toLowerCase();
+
+    const filteredFriends = friends.filter((friend) =>
+      friend.friendInfo.userName.toLowerCase().includes(searchValue)
+    );
+
+    setFilteredFriends(filteredFriends);
+
+    console.log("Filtered Friends:", filteredFriends);
+  };
 
   return (
     <div className={themeMode === "night" ? "messenger theme" : "messenger"}>
@@ -463,25 +474,28 @@ const Messenger = () => {
                 : ""}
             </div> */}
             <div className="friends">
-              {friends && friends.length > 0
-                ? friends.map((friend) => (
-                    <div
-                      className={
-                        currentFriend._id === friend.friendInfo._id
-                          ? "hover-friend active"
-                          : "hover-friend"
-                      }
-                      key={friend._id}
-                      onClick={() => handleClickFriend(friend)}
-                    >
-                      <Friends
-                        friend={friend}
-                        userInfo={userInfo.id}
-                        activeUsers={activeUsers}
-                      />
-                    </div>
-                  ))
-                : "You don't have any friends"}
+              {(filteredFriends.length > 0 ? filteredFriends : friends).map(
+                (friend) => (
+                  <div
+                    className={
+                      currentFriend._id === friend.friendInfo._id
+                        ? "hover-friend active"
+                        : "hover-friend"
+                    }
+                    key={friend._id}
+                    onClick={() => handleClickFriend(friend)}
+                  >
+                    <Friends
+                      friend={friend}
+                      userInfo={userInfo.id}
+                      activeUsers={activeUsers}
+                    />
+                  </div>
+                )
+              )}
+              {friends.length === 0 && filteredFriends.length === 0 && (
+                <div>You don't have any friends</div>
+              )}
             </div>
           </div>
         </div>
