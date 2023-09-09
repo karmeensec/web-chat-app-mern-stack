@@ -15,6 +15,8 @@ import {
   sendImageMessage,
   seenMessage,
   updateMessage,
+  setTheme,
+  getTheme,
 } from "../store/actions/messengerAction";
 import { useRef } from "react";
 import { io } from "socket.io-client";
@@ -22,11 +24,7 @@ import toast, { Toaster } from "react-hot-toast";
 import useSound from "use-sound";
 import notificationSound from "../audio/notification.mp3";
 import sendingSound from "../audio/sending.mp3";
-import {
-  getTheme,
-  setTheme,
-  userLogoutDispatch,
-} from "../store/actions/authAction";
+import { userLogoutDispatch } from "../store/actions/authAction";
 
 const Messenger = () => {
   const [currentFriend, setCurrentFriend] = useState("");
@@ -40,7 +38,7 @@ const Messenger = () => {
 
   const dispatch = useDispatch();
 
-  const { friends, message, messageSendSuccess, messageGetSuccess } =
+  const { friends, message, messageSendSuccess, messageGetSuccess, themeMode } =
     useSelector((state) => state.messenger);
   const { userInfo } = useSelector((state) => state.auth);
 
@@ -345,7 +343,7 @@ const Messenger = () => {
   }, []);
 
   return (
-    <div className="messenger theme">
+    <div className={themeMode === "night" ? "messenger theme" : "messenger"}>
       <Toaster
         position={"top-right"}
         reverseOrder={false}
