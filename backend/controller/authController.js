@@ -237,3 +237,9 @@ module.exports.userLogin = async (req, res) => {
 
   console.log("Login is called");
 };
+
+module.exports.userLogout = async (req, res) => {
+  res.status(200).cookie("authToken", "").json({
+    successMessage: "Logout successful",
+  });
+};
