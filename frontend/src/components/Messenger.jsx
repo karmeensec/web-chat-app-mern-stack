@@ -22,7 +22,11 @@ import toast, { Toaster } from "react-hot-toast";
 import useSound from "use-sound";
 import notificationSound from "../audio/notification.mp3";
 import sendingSound from "../audio/sending.mp3";
-import { userLogoutDispatch } from "../store/actions/authAction";
+import {
+  getTheme,
+  setTheme,
+  userLogoutDispatch,
+} from "../store/actions/authAction";
 
 const Messenger = () => {
   const [currentFriend, setCurrentFriend] = useState("");
@@ -332,8 +336,16 @@ const Messenger = () => {
     socketRef.current.emit("logout", userInfo.id);
   };
 
+  const handleThemeChange = (e) => {
+    dispatch(setTheme(e.target.value));
+  };
+
+  useEffect(() => {
+    dispatch(getTheme());
+  }, []);
+
   return (
-    <div className="messenger">
+    <div className="messenger theme">
       <Toaster
         position={"top-right"}
         reverseOrder={false}
@@ -374,12 +386,24 @@ const Messenger = () => {
 
                   <div className="on">
                     <label htmlFor="night">On</label>
-                    <input type="radio" name="theme" id="night" value="night" />
+                    <input
+                      type="radio"
+                      name="theme"
+                      id="night"
+                      value="night"
+                      onChange={handleThemeChange}
+                    />
                   </div>
 
                   <div className="off">
                     <label htmlFor="light">Off</label>
-                    <input type="radio" name="theme" id="light" value="light" />
+                    <input
+                      type="radio"
+                      name="theme"
+                      id="light"
+                      value="light"
+                      onChange={handleThemeChange}
+                    />
                   </div>
 
                   <div className="logout" onClick={handleLogoutClick}>
