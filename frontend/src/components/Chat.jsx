@@ -82,6 +82,7 @@ const Chat = ({
             <FriendInfo
               currentFriend={currentFriend}
               activeUsers={activeUsers}
+              message={message}
             />
           </div>
         </div>
