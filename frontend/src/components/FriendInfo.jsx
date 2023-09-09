@@ -1,7 +1,7 @@
 import React from "react";
 import { FaGears, FaUserLock, FaImages } from "react-icons/fa6";
 
-const FriendInfo = ({ currentFriend, activeUsers }) => {
+const FriendInfo = ({ currentFriend, activeUsers, message }) => {
   return (
     <div className="friend-info">
       <input type="checkbox" name="" id="gallery" />
@@ -46,10 +46,14 @@ const FriendInfo = ({ currentFriend, activeUsers }) => {
       </div>
 
       <div className="gallery">
-        <img src="" alt="" />
-        <img src="" alt="" />
-        <img src="" alt="" />
-        <img src="" alt="" />
+        {message &&
+          message.length > 0 &&
+          message.map(
+            (m, index) =>
+              m.message.image && (
+                <img src={`./images/${m.message.image}`} alt="" key={index} />
+              )
+          )}
       </div>
     </div>
   );
