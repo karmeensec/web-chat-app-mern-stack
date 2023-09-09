@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { FaEllipsis, FaRegPenToSquare, FaSistrix } from "react-icons/fa6";
+import {
+  FaEllipsis,
+  FaRegPenToSquare,
+  FaSistrix,
+  FaRightFromBracket,
+} from "react-icons/fa6";
 import ActiveFriend from "./ActiveFriend";
 import Friends from "./Friends";
 import Chat from "./Chat";
@@ -23,6 +28,7 @@ import toast, { Toaster } from "react-hot-toast";
 import useSound from "use-sound";
 import notificationSound from "../audio/notification.mp3";
 import sendingSound from "../audio/sending.mp3";
+import { userLogoutDispatch } from "../store/actions/authAction";
 
 const Messenger = () => {
   const [currentFriend, setCurrentFriend] = useState("");
@@ -30,6 +36,7 @@ const Messenger = () => {
   const [activeUsers, setActiveUsers] = useState([]);
   const [userSocketMessage, setUserSocketMessage] = useState("");
   const [userTypingMessage, setUserTypingMessage] = useState("");
+  const [isHidden, setIsHidden] = useState(true);
 
   console.log("CurrentFriend", currentFriend);
 
@@ -321,6 +328,14 @@ const Messenger = () => {
     }
   };
 
+  const handleHiddenMenuClick = () => {
+    setIsHidden((prev) => !prev);
+  };
+
+  const handleLogoutClick = () => {
+    dispatch(userLogoutDispatch());
+  };
+
   return (
     <div className="messenger">
       <Toaster
@@ -348,12 +363,33 @@ const Messenger = () => {
               </div>
 
               <div className="icons">
-                <div className="icon">
+                <div className="icon" onClick={handleHiddenMenuClick}>
                   <FaEllipsis />
                 </div>
 
                 <div className="icon">
                   <FaRegPenToSquare />
+                </div>
+
+                <div
+                  className={isHidden ? "theme_logout" : "theme_logout show"}
+                >
+                  <h3>Night Mode</h3>
+
+                  <div className="on">
+                    <label htmlFor="night">On</label>
+                    <input type="radio" name="theme" id="night" value="night" />
+                  </div>
+
+                  <div className="off">
+                    <label htmlFor="light">Off</label>
+                    <input type="radio" name="theme" id="light" value="light" />
+                  </div>
+
+                  <div className="logout" onClick={handleLogoutClick}>
+                    <FaRightFromBracket />
+                    Sign Out
+                  </div>
                 </div>
               </div>
             </div>
