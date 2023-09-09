@@ -42,6 +42,14 @@ socketIO.on("connection", (socket) => {
     addUser(userInfoId, userInfo, socket.id);
 
     socketIO.emit("getUser", users);
+
+    const user = users.filter((user) => user.userInfoId !== userInfoId);
+
+    const addNewUser = "add_new_user";
+
+    for (let i = 0; i < user.length; i++) {
+      socket.to(user[i].socketId).emit("add_new_user", addNewUser);
+    }
   });
 
   socket.on("sendMessage", (data) => {
