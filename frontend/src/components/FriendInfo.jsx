@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaGears, FaUserLock, FaImages } from "react-icons/fa6";
 
 const FriendInfo = ({ currentFriend, activeUsers, message }) => {
+  const [isShowSupportPrivacy, setIsShowSupportPrivacy] = useState(false);
+
+  const handleToggleSupportPrivacy = () => {
+    setIsShowSupportPrivacy((prev) => !prev);
+  };
+
   return (
     <div className="friend-info">
       <input type="checkbox" name="" id="gallery" />
@@ -32,7 +38,7 @@ const FriendInfo = ({ currentFriend, activeUsers, message }) => {
           <FaGears />
         </div>
 
-        <div className="privacy">
+        <div className="privacy" onClick={handleToggleSupportPrivacy}>
           <h3>Support and Privacy</h3>
           <FaUserLock />
         </div>
@@ -55,6 +61,27 @@ const FriendInfo = ({ currentFriend, activeUsers, message }) => {
               )
           )}
       </div>
+
+      {isShowSupportPrivacy && (
+        <div className="support-privacy-content">
+          <h4>Support and Privacy</h4>
+          <p>
+            We are dedicated to providing a safe and secure messaging experience
+            for all users. If you have any questions or concerns regarding our
+            privacy policies or need assistance with any aspect of the
+            application, please feel free to reach out to our support team.
+          </p>
+          <p>
+            Our commitment to privacy ensures that your personal information is
+            protected and never shared with third parties. You can learn more
+            about our privacy practices by reviewing our Privacy Policy.
+          </p>
+          <p>
+            For any further inquiries or assistance, please contact our support
+            team at support@webchatapp.com.
+          </p>
+        </div>
+      )}
     </div>
   );
 };
