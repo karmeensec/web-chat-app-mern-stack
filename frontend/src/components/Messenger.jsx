@@ -482,7 +482,7 @@ const Messenger = () => {
                         ? "hover-friend active"
                         : "hover-friend"
                     }
-                    key={friend._id}
+                    key={friend.friendInfo._id}
                     onClick={() => handleClickFriend(friend)}
                   >
                     <Friends
