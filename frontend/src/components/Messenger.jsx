@@ -494,7 +494,7 @@ const Messenger = () => {
                 )
               )}
               {friends.length === 0 && filteredFriends.length === 0 && (
-                <div>You don't have any friends</div>
+                <div className="center">You don't have any friends</div>
               )}
             </div>
           </div>
@@ -514,7 +514,16 @@ const Messenger = () => {
             userTypingMessage={userTypingMessage}
           />
         ) : (
-          "Tap to any friends to chat"
+          <div
+            className="center"
+            style={{
+              display: "flex",
+              justifyContent: "center ",
+              margin: "auto",
+            }}
+          >
+            Tap to any friends to chat
+          </div>
         )}
       </div>
     </div>
