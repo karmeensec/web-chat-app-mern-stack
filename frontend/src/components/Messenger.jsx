@@ -487,7 +487,7 @@ const Messenger = () => {
                   >
                     <Friends
                       friend={friend}
-                      userInfo={userInfo.id}
+                      idUser={userInfo.id}
                       activeUsers={activeUsers}
                     />
                   </div>

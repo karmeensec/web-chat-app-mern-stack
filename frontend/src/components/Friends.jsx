@@ -1,7 +1,7 @@
 import React from "react";
 import moment from "moment";
 
-const Friends = ({ friend, userInfo, activeUsers }) => {
+const Friends = ({ friend, idUser, activeUsers }) => {
   const { friendInfo, messageInfo } = friend;
 
   console.log("Active users: ", activeUsers);
@@ -28,7 +28,7 @@ const Friends = ({ friend, userInfo, activeUsers }) => {
         <div className="friend-name">
           <h5
             className={
-              messageInfo?.senderId !== userInfo &&
+              messageInfo?.senderId !== idUser &&
               messageInfo?.status !== undefined &&
               messageInfo?.status !== "seen"
                 ? "unseen_message"
@@ -40,12 +40,12 @@ const Friends = ({ friend, userInfo, activeUsers }) => {
 
           <div className="msg-time">
             {messageInfo &&
-              (messageInfo.senderId === userInfo ? (
+              (messageInfo.senderId === idUser ? (
                 <span>You</span>
               ) : (
                 <span
                   className={
-                    messageInfo?.senderId !== userInfo &&
+                    messageInfo?.senderId !== idUser &&
                     messageInfo?.status !== undefined &&
                     messageInfo?.status !== "seen"
                       ? "unseen_message"
@@ -59,7 +59,7 @@ const Friends = ({ friend, userInfo, activeUsers }) => {
             {messageInfo && messageInfo.message.text ? (
               <span
                 className={
-                  messageInfo?.senderId !== userInfo &&
+                  messageInfo?.senderId !== idUser &&
                   messageInfo?.status !== undefined &&
                   messageInfo?.status !== "seen"
                     ? "unseen_message"
@@ -72,7 +72,7 @@ const Friends = ({ friend, userInfo, activeUsers }) => {
             ) : messageInfo && messageInfo.message.image ? (
               <span
                 className={
-                  messageInfo?.senderId !== userInfo &&
+                  messageInfo?.senderId !== idUser &&
                   messageInfo?.status !== undefined &&
                   messageInfo?.status !== "seen"
                     ? "unseen_message"
@@ -94,14 +94,14 @@ const Friends = ({ friend, userInfo, activeUsers }) => {
           </div>
         </div>
 
-        {userInfo === messageInfo?.senderId ? (
+        {idUser === messageInfo?.senderId ? (
           <div className="seen-unseen-icon">
             {messageInfo.status === "seen" ? (
               <img src="./logos/seen.png" alt="" />
             ) : messageInfo.status === "delivered" ? (
               <img src="./logos/unseen.png" alt="" />
             ) : (
-              <img src="./logos/seen.png" alt="" />
+              <img src="./logos/unseen.png" alt="" />
             )}
           </div>
         ) : (
